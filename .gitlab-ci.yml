@@ -1,0 +1,29 @@
+image: alpine:latest
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r realm_mayankgautam_me/* public/
+
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+
+  only:
+    - main
+    - master
+
+validate:
+  stage: deploy
+  script:
+    - echo "Validating website structure..."
+    - test -f realm_mayankgautam_me/index.html
+    - echo "Validation successful!"
+  except:
+    - main
+    - master
