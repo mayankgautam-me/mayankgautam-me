@@ -12,17 +12,19 @@ Embedded engineer in Delhi. I take hardware products from the schematic to the s
 **What I build**
 
 - Boards: KiCad and Altium, from schematic to assembled panels
-- Firmware: Zephyr on nRF52, nRF54, nRF91 and SiWx917, STM32 with FreeRTOS, ESP32, PlatformIO, motor control (FOC)
+- Firmware: Zephyr on nRF52, nRF54, nRF91 and SiWx917, STM32 with FreeRTOS, ESP32, Arduino, PlatformIO, USB HID, motor control (FOC)
 - Wireless: 5G RedCap, BLE, LTE-M/NB-IoT, IEEE 802.15.4, Thread, Zigbee, LoRaWAN, Wi-Fi
 - Networking: TCP/IP, Linux kernel networking, MQTT, oneM2M, custom PHY and MAC layers
 - Embedded Linux: Yocto, kernel modules, networking stacks
 - Bring-up and debug: JTAG/SWD (OpenOCD, probe-rs), GDB, logic analysers and scopes, HIL testing
-- Cloud: Cloudflare Workers, D1, R2, Pages
+- Cloud: Cloudflare Workers, D1, R2, Pages, multi-tenant SaaS
 - Security: device identity and provisioning, encrypted secrets (SOPS, age), hardware wallets
 - AI/ML: speech recognition and speaker diarization pipelines, LLM apps on the Claude API, on-device inference, computer vision
 - DevOps: Docker, CI/CD on GitHub Actions and GitLab CI, self-hosted runners, reproducible toolchains, encrypted secrets
-- Apps: SwiftUI, Wear OS, Tauri desktop, React and Next.js web
-- Languages: C, C++, Python, Go, TypeScript, Swift, shell
+- Apps: SwiftUI, Wear OS, Tauri desktop (Rust and Svelte), React, Next.js and Payload CMS web
+- Languages: C, C++, Rust, Python, Go, TypeScript, Swift, Kotlin, shell
+
+**Recent builds** wearables, BLE and cellular trackers, a BLDC motor controller, a USB control deck, a voice-capture device, a meditation device, a one-octave keyboard instrument and a multi-tenant SaaS platform.
 
 **Earlier builds** a 3D printer with its own AVR controller board, a self-balancing controller, a MIDI controller, a QMK keyboard, an IoT clock, a paint-mixing machine, and face and gesture recognition on embedded Linux boards.
 
