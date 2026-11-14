@@ -28,8 +28,8 @@ PARTS := \
   web:web-pages
 
 # Per-part settings
-# what gets deployed: the build output folder
-web_OUT := web/public
+# what gets deployed: the Astro build output (astro build writes web/dist)
+web_OUT := web/dist
 # a static-assets Worker (web/wrangler.jsonc) on its custom domain, its only address
 web_URL_production := https://mayankgautam.me
 # web is production-only (no staging): make web-deploy ENV=production CONFIRM=production deploys it

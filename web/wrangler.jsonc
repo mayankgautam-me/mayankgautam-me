@@ -6,7 +6,7 @@
   "compatibility_date": "2026-11-15",
   "workers_dev": false,
   "preview_urls": false,
-  "assets": { "directory": "./public", "not_found_handling": "404-page" },
+  "assets": { "directory": "./dist", "not_found_handling": "404-page" },
 
   "env": {
     "production": {
@@ -19,7 +19,7 @@
         // www: a Cloudflare Redirect Rule on the zone sends it to https://mayankgautam.me (see docs/operations.md)
         { "pattern": "www.mayankgautam.me", "custom_domain": true }
       ],
-      "assets": { "directory": "./public", "not_found_handling": "404-page" }
+      "assets": { "directory": "./dist", "not_found_handling": "404-page" }
     }
   }
 }
