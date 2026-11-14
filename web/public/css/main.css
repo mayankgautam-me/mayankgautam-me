@@ -1298,8 +1298,8 @@ a.social-link:hover {
     display: inline-block; margin-bottom: 0 !important;
 	}
 
-.social-link.gitlab:before {
-	content: '\f296'
+.social-link.github:before {
+	content: '\f09b'
 	}
 .social-link.linkedin:before {
 	content: '\f0e1'
@@ -1317,8 +1317,8 @@ a.social-link:hover {
 	content: '\f099'
 	}
 
-.social-link.gitlab:hover {
-	background-color: #fca326;
+.social-link.github:hover {
+	background-color: #6e5494;
 	}
 .social-link.linkedin:hover {
 	background-color: #2089b5;
