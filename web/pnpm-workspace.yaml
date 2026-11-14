@@ -1,0 +1,10 @@
+# Packages whose install scripts pnpm may run (wrangler needs these). pnpm 10 reads onlyBuiltDependencies,
+# pnpm 11 and later allowBuilds.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - workerd
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
