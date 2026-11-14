@@ -11,6 +11,10 @@ format. Each release is tagged `web-v<version>` and gets a `## [<version>] - YYY
 
 ### Fixed
 
+## [1.0.1] - 2026-11-15
+
+### Fixed
+
 - The LinkedIn links point to linkedin.com/in/mayankgautam-me.
 
 ## [1.0.0] - 2026-11-15
