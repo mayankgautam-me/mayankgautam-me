@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="header-dark.svg">
-  <img alt="Mayank Gautam, embedded engineer" src="header-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="header-dark.svg?v=2">
+  <img alt="Mayank Gautam, embedded engineer" src="header-light.svg?v=2">
 </picture>
 
 Embedded engineer in Delhi. I take hardware products from the schematic to the shelf: the board, the firmware, the cloud behind it and the app in your hand.
