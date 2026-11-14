@@ -9,8 +9,8 @@ tech: make (project-standard), mise, Homebrew, GitHub Actions, sops + age
 files: [Makefile, make/**, Brewfile, mise.toml, secrets.schema, .github/**, .gitignore, .gitattributes, CLAUDE.md, PLAN.md, tests/**, docs/*.md, docs/images/**, scripts/**]
 kind: tooling
 - [ ] make setup and make doctor pass on this Mac {#project-setup}
-- [ ] Secrets created with make secrets-init {#project-secrets}
-- [ ] CI keys stored with make secrets-ci and the first CI run green {#project-ci}
+- [x] Secrets created with make secrets-init {#project-secrets}
+- [x] CI keys stored with make secrets-ci and the first CI run green {#project-ci}
 
 ## Profile {#profile}
 tech: GitHub profile README, SVG header
@@ -23,9 +23,9 @@ tech: static HTML site in web/public, a static-assets Worker on mayankgautam.me:
 files: [web/**]
 kind: web-pages
 - [x] Adopt the project standard: site moved to web/public, wrangler.jsonc, CI on GitHub Actions {#web-adopt}
-- [ ] Cloudflare token stored with make cf-login (account mayankgautam-me) {#web-cf-login}
-- [ ] First production deploy with make web-deploy ENV=production CONFIRM=production {#web-first-deploy}
+- [x] Cloudflare token stored with make cf-login (account mayankgautam-me) {#web-cf-login}
+- [x] First production deploy with make web-deploy ENV=production CONFIRM=production {#web-first-deploy}
 - [ ] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
-- [ ] Live site checked in the browser {#web-live-check}
+- [!] Live site checked in the browser: every request gets a Cloudflare challenge (zone security setting), waiting on the user {#web-live-check}
 - [ ] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
 
