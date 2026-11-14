@@ -27,5 +27,5 @@ kind: web-pages
 - [x] First production deploy with make web-deploy ENV=production CONFIRM=production {#web-first-deploy}
 - [ ] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
 - [x] Live site checked in the browser {#web-live-check}
-- [ ] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
+- [x] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
 
