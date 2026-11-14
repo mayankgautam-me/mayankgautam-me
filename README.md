@@ -5,23 +5,21 @@
 
 Embedded engineer in Delhi. I take hardware products from the schematic to the shelf: the board, the firmware, the cloud behind it and the app in your hand.
 
-**Now**
+**Now** building hardware products end to end, from board and firmware to cloud and app.
 
-- Embedded engineer at a deep-tech startup.
-- Part-time technology lead of a hardware product studio, running each product from board to app.
-
-**Before**
-
-- Four years on research projects at a university lab: an IEEE 802.15.4 RF network stack with custom PHY and MAC layers, and Li-Fi networks on embedded Linux (Xilinx MPSoC, kernel modules, Yocto).
+**Before** four years in a university research lab on RF networking (IEEE 802.15.4) and Li-Fi on embedded Linux.
 
 **What I build**
 
 - Boards: KiCad and Altium, from schematic to assembled panels
 - Firmware: Zephyr on nRF52, nRF54 and nRF91, STM32 with FreeRTOS, motor control (FOC)
-- Wireless: BLE, LTE-M/NB-IoT, IEEE 802.15.4
+- Wireless: BLE, LTE-M/NB-IoT, IEEE 802.15.4, Thread, Zigbee, LoRaWAN, Wi-Fi
+- Networking: TCP/IP, Linux kernel networking, MQTT, custom PHY and MAC layers
 - Embedded Linux: Yocto, kernel modules, networking stacks
 - Cloud: Cloudflare Workers, D1, R2, Pages
-- Apps: SwiftUI, Wear OS, Tauri desktop
+- DevOps: CI/CD on GitHub Actions and GitLab CI, self-hosted runners, reproducible toolchains, encrypted secrets
+- Apps: SwiftUI, Wear OS, Tauri desktop, React and Next.js web
+- Languages: C, C++, Python, Go, TypeScript, Swift, shell
 
 **Open source**
 
