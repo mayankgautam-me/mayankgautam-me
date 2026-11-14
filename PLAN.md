@@ -26,6 +26,6 @@ kind: web-pages
 - [x] Cloudflare token stored with make cf-login (account mayankgautam-me) {#web-cf-login}
 - [x] First production deploy with make web-deploy ENV=production CONFIRM=production {#web-first-deploy}
 - [ ] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
-- [!] Live site checked in the browser: every request gets a Cloudflare challenge (zone security setting), waiting on the user {#web-live-check}
+- [x] Live site checked in the browser {#web-live-check}
 - [ ] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
 
