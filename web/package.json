@@ -2,6 +2,15 @@
   "name": "mayankgautam-me-web",
   "private": true,
   "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3",
     "wrangler": "4.42.0"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.5",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "astro": "7.4.12"
   }
 }
