@@ -34,3 +34,5 @@ Embedded engineer in Delhi. I take hardware products from the schematic to the s
 - [ci-templates](https://github.com/mayankgautam-me/ci-templates): reusable GitHub Actions workflows, one per part kind
 
 [mayankgautam.me](https://mayankgautam.me) · [LinkedIn](https://www.linkedin.com/in/mayankgautam-me/)
+
+<sub>This repository also holds the source of [mayankgautam.me](https://mayankgautam.me), in [web/](web/).</sub>

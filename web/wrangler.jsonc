@@ -1,0 +1,24 @@
+// wrangler.jsonc: the web site as a static-assets Worker. Each env block is one Worker on its custom domain,
+// its only address: workers_dev and preview_urls are off, so there is no *.workers.dev or preview URL.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "website-web",
+  "compatibility_date": "2026-11-15",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": { "directory": "./public", "not_found_handling": "404-page" },
+
+  "env": {
+    "production": {
+      "name": "website-production-web",
+      "workers_dev": false,
+      "preview_urls": false,
+      "routes": [
+        { "pattern": "mayankgautam.me", "custom_domain": true },
+        // www: a Cloudflare Redirect Rule on the zone sends it to https://mayankgautam.me (see docs/operations.md)
+        { "pattern": "www.mayankgautam.me", "custom_domain": true }
+      ],
+      "assets": { "directory": "./public", "not_found_handling": "404-page" }
+    }
+  }
+}
