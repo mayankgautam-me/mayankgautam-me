@@ -2,22 +2,61 @@
 
 Part of the `mayankgautam-me` repository, which is also the GitHub profile README; see [docs/README.md](../docs/README.md).
 
-The personal website at https://mayankgautam.me: plain HTML, CSS and JavaScript, served by a
-Cloudflare static-assets Worker (`website-production-web`) with no build step.
+The personal website at https://mayankgautam.me: an [Astro](https://astro.build) static site, built to
+`dist/` and served by a Cloudflare static-assets Worker (`website-production-web`).
 
 ## Purpose
 
-An about page, resume, portfolio of hardware and software projects, and contact details.
-Missing paths get `public/404.html` (`not_found_handling` in `wrangler.jsonc`).
+Home, about, resume, portfolio, blog and contact pages for an embedded engineer. The content follows the
+profile README at the repository root (`../README.md`), which is the source of truth.
+Missing paths get `dist/404.html` (`not_found_handling` in `wrangler.jsonc`).
+
+## Layout
+
+    astro.config.mjs        site URL, build.format 'file', sitemap, code-block themes
+    src/data/site.ts        links, experience, skills and education, from ../README.md
+    src/content/work/       portfolio items (content collection): products and the 2017-2019 personal builds
+    src/content/blog/       blog posts (content collection, Markdown); draft: true adds a "Draft" label
+    src/content.config.ts   the collections' schemas
+    src/pages/              one file per page; pages/portfolio/[slug].astro is /pages/portfolio/<slug>.html
+    src/components/         nav, footer, project card, Art.astro (the inline-SVG drawings)
+    src/styles/global.css   Tokyo Night tokens (dark default, light by prefers-color-scheme) and every component
+    public/                 copied as is: favicon.svg, robots.txt
+
+`build.format: 'file'` writes `about.html`, `pages/portfolio/<slug>.html` and so on, so every URL of the old
+site still resolves. Links and canonical URLs use the form Cloudflare serves (`/about`), since its default
+`html_handling` redirects `/about.html` there. `/rss.xml` is the blog feed; `/sitemap-index.xml` the sitemap.
+
+Design rules: inline SVG only (no photos), Geist and Geist Mono self-hosted from `@fontsource-variable`, no
+third-party requests. Scroll reveals are an enhancement: content is visible unless the head script adds
+`reveal-on` (IntersectionObserver present, reduced motion off, page visible), and a stalled observer or a
+background tab shows everything.
 
 ## Build and run
 
-Served from `public/` (or the build output set in `wrangler.jsonc`). `make dev` serves it locally,
-`make web-deploy ENV=production CONFIRM=production` publishes it (production-only: no staging).
+Packages are pinned in `package.json` and installed with pnpm (`make setup`).
+
+    pnpm --dir web exec astro dev       # dev server with reload
+    pnpm --dir web exec astro check     # type and template check
+    pnpm --dir web exec astro build     # writes web/dist
+    pnpm --dir web exec astro preview   # serves web/dist
+
+`make dev` serves `web/dist` with wrangler, so build first. Until the project standard's web-pages kind runs
+`astro build` in `make web-build` (support is on the way), build by hand before `make dev`, and do not release:
+the release workflow would deploy without building.
+
+## Writing
+
+- A blog post is a Markdown file in `src/content/blog/` with `title`, `description`, `date`, `tags` and
+  `draft`. It appears on `/blog`, in the feed and in the sitemap.
+- A portfolio item is a Markdown file in `src/content/work/` with `title`, `summary`, `group` (`product` or
+  `build`), `context`, `period`, `order` and `art` (a drawing name from `src/components/Art.astro`). The file
+  name is its URL: `/pages/portfolio/<file name>.html`.
 
 ## Configuration
 
-`web_OUT` in `make/project.mk` is the folder that gets deployed (default `web/public`).
+`web_OUT` in `make/project.mk` is the folder that gets deployed (`web/dist`), the same folder as
+`assets.directory` in `wrangler.jsonc`.
 
 ## Release
 

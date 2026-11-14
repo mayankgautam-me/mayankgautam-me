@@ -9,6 +9,8 @@ format. Each release is tagged `web-v<version>` and gets a `## [<version>] - YYY
 
 ### Changed
 
+- Rebuilt the site in Astro with a new design in Tokyo Night colours (dark and light), from README.md's current story: home, about, resume (prints cleanly), portfolio with a page per product and personal build, a blog with an RSS feed, contact and 404. Every old URL still works. No jQuery, preloader, audio or photos; fonts are self-hosted.
+
 ### Fixed
 
 ## [1.0.1] - 2026-11-15

@@ -1,8 +1,8 @@
 # mayankgautam-me: documents
 
 This repository is two things: my GitHub profile README (`README.md` and `assets/` at the root, shown on
-github.com/mayankgautam-me) and the source of my personal website, https://mayankgautam.me: a static site in
-`web/public/` served by a Cloudflare static-assets Worker. The rest of the root (`Makefile`, `make/`, `docs/`,
+github.com/mayankgautam-me) and the source of my personal website, https://mayankgautam.me: an Astro site in
+`web/`, built to `web/dist/` and served by a Cloudflare static-assets Worker. The rest of the root (`Makefile`, `make/`, `docs/`,
 `.github/`) belongs to the website and follows the project standard: `make help` lists the commands.
 
     make setup                                      # tools and the site's packages
