@@ -21,7 +21,7 @@
 #   firmware_NCS   := v3.2.1
 # A value given on the command line wins: `make firmware-build BOARD=...`.
 
-PROJECT   := website
+PROJECT   := mayankgautam-me
 PORT_BASE := 8000
 
 PARTS := \

@@ -1,4 +1,4 @@
-# website
+# mayankgautam-me
 
 This repository is also the GitHub profile README: `README.md` and `assets/` at the root are the profile page, not the
 website's docs. The website lives in `web/` and is documented in `docs/`. The repository is public.

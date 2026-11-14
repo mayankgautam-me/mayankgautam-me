@@ -1,4 +1,4 @@
-# website
+# mayankgautam-me
 
 Components and tasks of this project, drawn as the project map. A component is `## Name {#id}` with
 `tech:`, `files:` and `kind:` lines; tasks are `- [ ]` (todo), `- [~]` (in progress), `- [x]` (done)

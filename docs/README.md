@@ -1,4 +1,4 @@
-# website: documents
+# mayankgautam-me: documents
 
 This repository is two things: my GitHub profile README (`README.md` and `assets/` at the root, shown on
 github.com/mayankgautam-me) and the source of my personal website, https://mayankgautam.me: a static site in

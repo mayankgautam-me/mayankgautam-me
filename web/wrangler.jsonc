@@ -2,7 +2,7 @@
 // its only address: workers_dev and preview_urls are off, so there is no *.workers.dev or preview URL.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "website-web",
+  "name": "mayankgautam-me-web",
   "compatibility_date": "2026-11-15",
   "workers_dev": false,
   "preview_urls": false,
@@ -10,6 +10,7 @@
 
   "env": {
     "production": {
+      // kept from the first setup, when the project was called website
       "name": "website-production-web",
       "workers_dev": false,
       "preview_urls": false,
