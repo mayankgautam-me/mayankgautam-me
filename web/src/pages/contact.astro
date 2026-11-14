@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { SITE } from '../data/site';
+---
+<Base
+  title="Contact"
+  path="/contact"
+  description="Contact Mayank Gautam, embedded engineer in Delhi, India: email, LinkedIn and GitHub."
+>
+  <section class="block" style="padding-top:168px;padding-bottom:40px" aria-labelledby="contact-title">
+    <div class="shell contact rv">
+      <div class="core">
+        <div>
+          <span class="eyebrow"><b></b>Contact</span>
+          <h1 id="contact-title" class="contact-h">Have hardware<br /><span class="dim">to bring to life?</span></h1>
+          <p class="lede" style="margin-top:22px">Write to me by email, or find me on LinkedIn and GitHub.</p>
+        </div>
+        <div class="links">
+          <a href={`mailto:${SITE.email}`}><span class="l"><small class="mono">Email</small><span>{SITE.email}</span></span><span class="dot"><Arrow /></span></a>
+          <a href={SITE.linkedin}><span class="l"><small class="mono">LinkedIn</small><span>linkedin.com/in/mayankgautam-me</span></span><span class="dot"><Arrow /></span></a>
+          <a href={SITE.github}><span class="l"><small class="mono">GitHub</small><span>github.com/mayankgautam-me</span></span><span class="dot"><Arrow /></span></a>
+          <div class="row"><span class="l"><small class="mono">Location</small><span>{SITE.place}</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-h { font-size: clamp(40px, 5.2vw, 76px); line-height: 1; letter-spacing: -0.045em; margin: 20px 0 0; }
+  .lede { color: var(--ink-2); font-weight: 300; max-width: 36ch; }
+  @media (max-width: 768px) { section.block { padding-top: 120px !important; } }
+</style>

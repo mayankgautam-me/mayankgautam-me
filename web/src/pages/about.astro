@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { INTRO, SKILLS, EDUCATION, OPEN_SOURCE, SITE } from '../data/site';
+
+const areas = SKILLS.filter((s) => s.area !== 'Products');
+const steps = ['Research', 'Idea', 'Design', 'Develop', 'Test', 'Launch'];
+---
+<Base
+  title="About"
+  path="/about"
+  description="Who Mayank Gautam is: an embedded engineer in Delhi who takes hardware products from the schematic to the shelf, across board, firmware, cloud and app."
+>
+  <header class="page-head">
+    <div>
+      <span class="eyebrow rv"><b></b>About</span>
+      <h1 class="rv d1">Schematic<br /><span class="dim">to</span> <em>shelf.</em></h1>
+    </div>
+    <p class="lede rv d2">{INTRO}</p>
+  </header>
+
+  <section class="block tight" aria-labelledby="who">
+    <div class="article">
+      <div class="aside rv">
+        <span class="eyebrow"><b></b>Who I am</span>
+        <div class="meta">
+          <div><small class="mono">Based in</small><span>{SITE.place}</span></div>
+          <div><small class="mono">Working on</small><span>Connected devices, board to cloud</span></div>
+          <div><small class="mono">Since</small><span>Personal builds from 2017, professional work from 2019</span></div>
+        </div>
+      </div>
+      <div class="prose rv d1">
+        <h2 id="who">One person across the whole product</h2>
+        <p>I am an embedded engineer in Delhi. Most products need a board, firmware on it, a cloud behind it and an app in someone's hand. I work on all four.</p>
+        <p>It started with my own builds between 2017 and 2019: 3D printers and their controller boards, self-balancing robots and a one-wheel vehicle, MIDI and HID controllers, IoT devices and computer-vision systems. In 2018 I interned as an electronics engineer, working on wireless communication, audio processing, analog design, PCB design and assembly.</p>
+        <p>From 2019 to 2024 I worked in a university research lab: first as a project scientist on Li-Fi networks on embedded Linux (Xilinx MPSoC, kernel modules, Yocto), with Altium boards and OrCAD simulation, then as a senior project scientist on a proprietary IEEE 802.15.4 RF network stack with custom PHY and MAC layers, its GCC build system and CI/CD packaging.</p>
+        <p>Since 2019 I have also worked independently as a product engineering lead, taking more than a dozen hardware products from concept to production: wearables, Bluetooth tags and cellular trackers, a BLDC motor controller, USB control decks, voice-capture and meditation devices and a musical instrument, with the boards, firmware, cloud back ends, SaaS and apps around them.</p>
+        <p>Since 2024 I have been an embedded engineer at a deep-tech startup, on connected devices from board to cloud: air-quality monitoring, a 5G RedCap, Wi-Fi and BLE gateway, oneM2M device platforms and Zephyr firmware on Silicon Labs Wi-Fi SoCs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="stack-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Across the stack</span>
+        <h2 class="rv d1" id="stack-title">How I work,<br /><span>layer by layer.</span></h2>
+      </div>
+      <p class="rv d2">Products: wearables, Bluetooth and cellular trackers, IoT gateways, environmental sensors, motor controllers, control decks, instruments and robots.</p>
+    </div>
+    <div class="skills rv">
+      {areas.map((s, i) => (
+        <div class="skill"><span class="mono">{String(i + 1).padStart(2, '0')}</span><h3>{s.area}</h3><p>{s.items}.</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="block tight" aria-labelledby="process-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Process</span>
+        <h2 class="rv d1" id="process-title">From a question<br /><span>to a launch.</span></h2>
+      </div>
+    </div>
+    <ol class="steps rv">
+      {steps.map((s, i) => <li><span class="mono">{String(i + 1).padStart(2, '0')}</span><h3>{s}</h3></li>)}
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="edu-title">
+    <div class="exp">
+      <div class="shell rv">
+        <div class="core">
+          <div class="when mono"><span>{EDUCATION.from} – {EDUCATION.to}</span><span>Education</span></div>
+          <h3 id="edu-title">{EDUCATION.degree}</h3>
+          <div class="org">{EDUCATION.field}</div>
+          <p class="d">During the degree I specialised in embedded and communication engineering, and built the personal projects that started this work: embedded hardware and firmware, web front and back ends, machine learning, mobile apps, IoT devices and robots.</p>
+        </div>
+      </div>
+      <div class="shell rv d1">
+        <div class="core">
+          <div class="when mono"><span>GitHub</span><span>Open source</span></div>
+          <h3>Published as used</h3>
+          <div class="org">github.com/mayankgautam-me</div>
+          <div class="links" style="margin-top:22px">
+            {OPEN_SOURCE.map((o) => (
+              <a href={o.href}><span class="l"><small class="mono">{o.name}</small><span>{o.text}</span></span><span class="dot"><Arrow /></span></a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ctas rv" style="margin-top:48px">
+      <a class="btn" href="/resume">Read the resume <span class="dot"><Arrow /></span></a>
+      <a class="btn ghost" href="/contact">Get in touch <span class="dot"><Arrow kind="mail" /></span></a>
+    </div>
+  </section>
+</Base>

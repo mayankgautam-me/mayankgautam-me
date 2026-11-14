@@ -1,0 +1,155 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { SITE, EXPERIENCE } from '../data/site';
+import { allWork } from '../data/work';
+
+const work = await allWork();
+const pick = (id: string) => work.find((w) => w.id === id)!;
+const [startup, independent, senior, scientist] = EXPERIENCE;
+
+const skills = [
+  ['Boards', 'KiCad and Altium', 'From schematic to assembled panels.'],
+  ['Firmware', 'Zephyr, FreeRTOS, ESP32', 'nRF52, nRF54, nRF91 and SiWx917, STM32, PlatformIO, USB HID, FOC.'],
+  ['Wireless', '5G RedCap to LoRaWAN', 'BLE, LTE-M/NB-IoT, IEEE 802.15.4, Thread, Zigbee, Wi-Fi.'],
+  ['Linux and networking', 'Yocto, kernel modules', 'TCP/IP, MQTT, oneM2M, custom PHY and MAC layers.'],
+  ['Bring-up', 'JTAG/SWD and GDB', 'OpenOCD, probe-rs, logic analysers and scopes, HIL testing.'],
+  ['Cloud', 'Cloudflare Workers', 'D1, R2, Pages, multi-tenant SaaS, device identity and provisioning.'],
+  ['Apps and AI', 'SwiftUI, Wear OS, Tauri', 'React and Next.js web, LLM apps on the Claude API, on-device inference.'],
+  ['Languages', 'C, C++, Rust, Python', 'Go, TypeScript, Swift, Kotlin, shell.'],
+];
+---
+<Base
+  title="Home"
+  path="/"
+  description="Embedded engineer in Delhi. Hardware products from the schematic to the shelf: the board, the firmware, the cloud behind it and the app in your hand."
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div>
+      <span class="eyebrow rv"><b></b>Embedded engineer · Delhi</span>
+      <h1 class="rv d1" id="hero-title">Mayank<br /><em>Gautam</em></h1>
+      <p class="role mono rv d2">More than seven years across the full embedded stack</p>
+      <p class="pitch rv d2">I take hardware products <strong>from the schematic to the shelf</strong>: the board, the firmware, the cloud behind it and the app in your hand.</p>
+      <div class="ctas rv d3">
+        <a class="btn" href="/portfolio">See the work <span class="dot"><Arrow /></span></a>
+        <a class="btn ghost" href={`mailto:${SITE.email}`}>Get in touch <span class="dot"><Arrow kind="mail" /></span></a>
+      </div>
+    </div>
+
+    <div class="shell stack rv d2">
+      <div class="core">
+        <div class="stack-head mono"><span>One owner, four layers</span><span>schematic → shelf</span></div>
+        <div class="layer">
+          <span class="n mono">01</span>
+          <div><p class="layer-t">Board</p><p>KiCad and Altium, schematic to assembled panels</p></div>
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="var(--blue)"><rect x="5" y="5" width="14" height="14" rx="2" /><rect x="9" y="9" width="6" height="6" rx=".8" /><path d="M9 2.5V5M12 2.5V5M15 2.5V5M9 19v2.5M12 19v2.5M15 19v2.5M2.5 9H5M2.5 12H5M2.5 15H5M19 9h2.5M19 12h2.5M19 15h2.5" /></svg></span>
+        </div>
+        <div class="layer">
+          <span class="n mono">02</span>
+          <div><p class="layer-t">Firmware</p><p>Zephyr, FreeRTOS, ESP32, motor control</p></div>
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="var(--magenta)"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15" /></svg></span>
+        </div>
+        <div class="layer">
+          <span class="n mono">03</span>
+          <div><p class="layer-t">Cloud</p><p>Cloudflare Workers, D1, R2, multi-tenant SaaS</p></div>
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="var(--teal)"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.6 4.5 4.5 0 0 0 7 18.5z" /></svg></span>
+        </div>
+        <div class="layer">
+          <span class="n mono">04</span>
+          <div><p class="layer-t">App</p><p>SwiftUI, Wear OS, Tauri, React and Next.js</p></div>
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="var(--orange)"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M10.5 18.5h3" /></svg></span>
+        </div>
+        <div class="stack-foot">
+          <span class="pulse"><b aria-hidden="true"></b>Now: connected devices, board to cloud</span>
+          <span class="mono">2024 →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="exp-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Experience</span>
+        <h2 class="rv d1" id="exp-title">Two roles,<br /><span>one stack.</span></h2>
+      </div>
+      <p class="rv d2">A deep-tech startup and an independent product practice, built on years in a university research lab.</p>
+    </div>
+
+    <div class="exp">
+      {[startup, independent].map((r, i) => (
+        <div class={`shell rv ${i ? 'd1' : ''}`}>
+          <div class="core">
+            <div class="when mono"><span>{r.from} → {r.to}</span><span class="now"><b aria-hidden="true"></b>Current</span></div>
+            <h3>{r.title}</h3>
+            <div class="org">{r.org}</div>
+            <p class="d">{r.summary}</p>
+            <div class="tags">{r.tags?.map((t) => <span>{t}</span>)}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="earlier rv">
+      <div><span class="mono">{senior.from} – {senior.to}</span><h3>{senior.title}</h3><p>{senior.org}. IEEE 802.15.4 RF network stack.</p></div>
+      <div><span class="mono">{scientist.from} – {scientist.to}</span><h3>{scientist.title}</h3><p>{scientist.org}. Li-Fi networks on embedded Linux.</p></div>
+      <div><span class="mono">2015 – 2019</span><h3>B.Tech</h3><p>Electrical, Electronics and Communications Engineering.</p></div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="work-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Selected work</span>
+        <h2 class="rv d1" id="work-title">From radio<br /><span>to rotor.</span></h2>
+      </div>
+      <p class="rv d2">Four pieces of work that show the range, from the PHY layer of a radio to the phase currents of a motor.</p>
+    </div>
+    <div class="bento">
+      <WorkCard item={pick('5g-redcap-gateway')} cls="b1" />
+      <WorkCard item={pick('ieee-802-15-4-rf-stack')} cls="b2 g2 d1" />
+      <WorkCard item={pick('wearables-and-trackers')} cls="b3 g3 d2" />
+      <WorkCard item={pick('bldc-motor-controller')} cls="b4" />
+    </div>
+    <div class="ctas rv" style="justify-content:center;margin-top:48px">
+      <a class="btn ghost" href="/portfolio">All products and builds <span class="dot"><Arrow /></span></a>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="skills-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>What I build</span>
+        <h2 class="rv d1" id="skills-title">The whole stack,<br /><span>in one pair of hands.</span></h2>
+      </div>
+      <p class="rv d2">Wearables, trackers, IoT gateways, environmental sensors, motor controllers, control decks, instruments and robots.</p>
+    </div>
+    <div class="skills rv">
+      {skills.map(([k, h, p], i) => (
+        <div class="skill"><span class="mono">{String(i + 1).padStart(2, '0')} · {k}</span><h3>{h}</h3><p>{p}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section class="block" style="padding-bottom:40px" aria-labelledby="contact-title">
+    <div class="shell contact rv">
+      <div class="core">
+        <div>
+          <span class="eyebrow"><b></b>Contact</span>
+          <h2 id="contact-title">Have hardware<br /><span>to bring to life?</span></h2>
+        </div>
+        <div class="links">
+          <a href={`mailto:${SITE.email}`}><span class="l"><small class="mono">Email</small><span>{SITE.email}</span></span><span class="dot"><Arrow /></span></a>
+          <a href={SITE.github}><span class="l"><small class="mono">GitHub</small><span>github.com/mayankgautam-me</span></span><span class="dot"><Arrow /></span></a>
+          <a href={SITE.linkedin}><span class="l"><small class="mono">LinkedIn</small><span>linkedin.com/in/mayankgautam-me</span></span><span class="dot"><Arrow /></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layer-t { font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin: 0; line-height: 1.3; }
+  .stack-foot .mono { color: var(--ink-3); }
+</style>

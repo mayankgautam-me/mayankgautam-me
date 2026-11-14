@@ -1,0 +1,55 @@
+---
+// One page per portfolio item at /pages/portfolio/<slug>.html, the URLs the old site used.
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Art from '../../../components/Art.astro';
+import { allWork, workHref, type Work } from '../../../data/work';
+
+export async function getStaticPaths() {
+  const work = await allWork();
+  return work.map((item) => {
+    const group = work.filter((w) => w.data.group === item.data.group);
+    const i = group.indexOf(item);
+    return { params: { slug: item.id }, props: { item, prev: group[i - 1], next: group[i + 1] } };
+  });
+}
+interface Props { item: Work; prev?: Work; next?: Work }
+const { item, prev, next } = Astro.props;
+const { Content } = await render(item);
+const d = item.data;
+---
+<Base title={d.title} path={workHref(item.id)} section="/portfolio" description={d.summary} type="article">
+  <header class="page-head">
+    <div>
+      <a class="eyebrow rv" href="/portfolio"><b></b>{d.group === 'product' ? 'Product' : 'Personal build'} · Portfolio</a>
+      <h1 class="rv d1">{d.title}</h1>
+    </div>
+    <p class="lede rv d2">{d.summary}</p>
+  </header>
+
+  <div class="shell hero-art rv d2">
+    <div class="core"><Art name={d.art} /></div>
+  </div>
+
+  <section class="block tight" aria-label="Details">
+    <div class="article">
+      <div class="aside rv">
+        <div class="meta">
+          <div><small class="mono">When</small><span>{d.period}</span></div>
+          <div><small class="mono">Context</small><span>{d.context}</span></div>
+        </div>
+        {d.tags.length > 0 && <div class="tags" style="padding-top:0">{d.tags.map((t) => <span>{t}</span>)}</div>}
+      </div>
+      <div class="prose rv d1"><Content /></div>
+    </div>
+
+    <nav class="pager" aria-label="More work">
+      {prev ? (
+        <a class="shell" href={workHref(prev.id)}><div class="core"><small class="mono">Previous</small><span>{prev.data.title}</span></div></a>
+      ) : <a class="shell" href="/portfolio"><div class="core"><small class="mono">Back</small><span>All work</span></div></a>}
+      {next ? (
+        <a class="shell next" href={workHref(next.id)}><div class="core"><small class="mono">Next</small><span>{next.data.title}</span></div></a>
+      ) : <a class="shell next" href="/portfolio"><div class="core"><small class="mono">Back</small><span>All work</span></div></a>}
+    </nav>
+  </section>
+</Base>

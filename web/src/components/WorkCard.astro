@@ -1,0 +1,33 @@
+---
+// A bento card for a product: double bezel, drawing, title and summary.
+import Art from './Art.astro';
+import Arrow from './Arrow.astro';
+import { workHref, type Work } from '../data/work';
+interface Props { item: Work; cls: string; heading?: 'h2' | 'h3' }
+const { item, cls, heading = 'h3' } = Astro.props;
+const H = heading;
+const wide = cls.includes('b4');
+---
+<a href={workHref(item.id)} class={`shell proj rv ${cls}`}>
+  <div class="core">
+    {wide ? (
+      <Fragment>
+        <div>
+          <div class="k mono"><span>{item.data.context}</span><span>{item.data.period}</span></div>
+          <H>{item.data.title}</H>
+          <p>{item.data.summary}</p>
+          <span class="more">Read more <Arrow /></span>
+        </div>
+        <div class="art"><Art name={item.data.art} /></div>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <div class="k mono"><span>{item.data.context}</span><span>{item.data.period}</span></div>
+        <div class="art"><Art name={item.data.art} /></div>
+        <H>{item.data.title}</H>
+        <p>{item.data.summary}</p>
+        <span class="more">Read more <Arrow /></span>
+      </Fragment>
+    )}
+  </div>
+</a>

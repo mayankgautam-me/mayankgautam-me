@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<Base title="Page not found" path="/404.html" description="This page does not exist on mayankgautam.me." noindex>
+  <section class="nf" aria-labelledby="nf-title">
+    <span class="eyebrow"><b></b>Error 404</span>
+    <h1 id="nf-title">Nothing on<br /><em>this trace.</em></h1>
+    <p class="lede">The page you asked for is not here. It may have moved when the site was rebuilt.</p>
+    <svg class="nf-art" viewBox="0 0 400 80" fill="none" stroke-width="1.1" stroke-linecap="round" aria-hidden="true">
+      <path d="M0 40h150" stroke="var(--blue)" />
+      <circle cx="156" cy="40" r="6" stroke="var(--blue)" />
+      <path d="M244 40h156" stroke="var(--hair-2)" stroke-dasharray="2 5" />
+      <circle cx="238" cy="40" r="6" stroke="var(--magenta)" />
+      <path d="M180 30l20 20M200 30l-20 20" stroke="var(--ink-3)" />
+    </svg>
+    <div class="ctas">
+      <a class="btn" href="/">Back home <span class="dot"><Arrow /></span></a>
+      <a class="btn ghost" href="/portfolio">See the work <span class="dot"><Arrow /></span></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 80dvh; display: flex; flex-direction: column; justify-content: center; padding: 160px 0 60px; }
+  .nf .eyebrow { align-self: flex-start; }
+  .lede { color: var(--ink-2); font-weight: 300; font-size: 18px; max-width: 40ch; }
+  .nf-art { width: min(100%, 520px); margin: 40px 0 0; }
+</style>

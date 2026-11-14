@@ -1,0 +1,248 @@
+---
+// Line drawings for portfolio items: inline SVG only, coloured from the theme tokens.
+// Every drawing is 400 x 160 and decorative (aria-hidden); the title next to it says what it is.
+import type { ART } from '../content.config';
+interface Props { name: (typeof ART)[number]; class?: string }
+const { name, class: cls } = Astro.props;
+const mono = { 'font-family': 'Geist Mono Variable, ui-monospace, monospace', 'font-size': 10.5, fill: 'var(--ink-3)', stroke: 'none', 'letter-spacing': 1 };
+---
+<svg viewBox="0 0 400 160" fill="none" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" class={cls}>
+  {name === 'gateway' && (
+    <Fragment>
+      <g stroke="var(--hair-2)"><circle cx="200" cy="80" r="76" /><circle cx="200" cy="80" r="54" /><circle cx="200" cy="80" r="32" /></g>
+      <g stroke="var(--blue)"><path d="M178 58a30 30 0 0 1 44 0" /><path d="M167 47a46 46 0 0 1 66 0" /><path d="M156 36a62 62 0 0 1 88 0" /></g>
+      <rect x="174" y="68" width="52" height="36" rx="9" stroke="var(--ink-2)" />
+      <path d="M186 94h28" stroke="var(--ink-3)" />
+      <circle cx="187" cy="81" r="2.2" fill="var(--teal)" stroke="none" /><circle cx="196" cy="81" r="2.2" fill="var(--blue)" stroke="none" /><circle cx="205" cy="81" r="2.2" fill="var(--magenta)" stroke="none" />
+      <g stroke="var(--ink-3)" stroke-dasharray="2 5"><path d="M174 86H40" /><path d="M226 86h134" /><path d="M200 104v46" /></g>
+      <g {...mono}><text x="40" y="77">5G REDCAP</text><text x="322" y="77">WI-FI</text><text x="208" y="152">BLE</text></g>
+    </Fragment>
+  )}
+  {name === 'radio' && (
+    <Fragment>
+      <path d="M0 80H400" stroke="var(--hair-2)" stroke-dasharray="2 4" />
+      <path d="M0 80 C 20 30, 40 30, 60 80 S 100 130, 120 80 S 160 30, 180 80 S 220 130, 240 80 S 280 30, 300 80 S 340 130, 360 80 S 390 45, 400 60" stroke="var(--magenta)" />
+      <g stroke="var(--ink-3)"><rect x="20" y="132" width="70" height="20" rx="6" /><rect x="100" y="132" width="70" height="20" rx="6" /></g>
+      <g {...mono}><text x="39" y="146">PHY</text><text x="119" y="146">MAC</text><text x="300" y="150">802.15.4</text></g>
+    </Fragment>
+  )}
+  {name === 'wearables' && (
+    <Fragment>
+      <rect x="24" y="44" width="56" height="72" rx="18" stroke="var(--teal)" />
+      <path d="M38 44V20M66 44V20M38 116v24M66 116v24" stroke="var(--ink-3)" />
+      <path d="M40 86h8l5-12 7 22 5-10h9" stroke="var(--teal)" />
+      <circle cx="170" cy="80" r="30" stroke="var(--ink-2)" /><circle cx="170" cy="80" r="5" fill="var(--teal)" stroke="none" />
+      <path d="M156 52a32 32 0 0 1 28 0" stroke="var(--ink-3)" />
+      <rect x="248" y="52" width="84" height="56" rx="12" stroke="var(--ink-2)" />
+      <path d="M262 94h30" stroke="var(--ink-3)" />
+      <path d="M346 66a20 20 0 0 1 0 28M356 56a34 34 0 0 1 0 48" stroke="var(--teal)" />
+    </Fragment>
+  )}
+  {name === 'phases' && (
+    <Fragment>
+      <path d="M0 74H400" stroke="var(--hair-2)" />
+      <path d="M0 74 C 33 12, 67 12, 100 74 S 167 136, 200 74 S 267 12, 300 74 S 367 136, 400 74" stroke="var(--blue)" />
+      <path d="M0 128 C 22 128, 45 74, 67 42 S 122 12, 167 74 S 233 136, 267 106 S 333 12, 400 42" stroke="var(--magenta)" opacity=".9" />
+      <path d="M0 20 C 22 20, 45 74, 67 106 S 122 136, 167 74 S 233 12, 267 42 S 333 136, 400 106" stroke="var(--teal)" opacity=".9" />
+      <g {...mono}><text x="0" y="156">PHASE A · B · C</text><text x="372" y="156">FOC</text></g>
+    </Fragment>
+  )}
+  {name === 'deck' && (
+    <Fragment>
+      <rect x="70" y="24" width="260" height="112" rx="16" stroke="var(--ink-2)" />
+      <g stroke="var(--ink-3)">
+        {[0, 1, 2, 3].map((c) => [0, 1].map((r) => <rect x={92 + c * 44} y={42 + r * 44} width="32" height="32" rx="7" />))}
+      </g>
+      <rect x="92" y="42" width="32" height="32" rx="7" stroke="var(--blue)" />
+      <circle cx="294" cy="58" r="14" stroke="var(--magenta)" /><path d="M294 58l6-8" stroke="var(--magenta)" />
+      <circle cx="294" cy="102" r="14" stroke="var(--ink-3)" /><path d="M294 102l-7-6" stroke="var(--ink-3)" />
+      <path d="M330 80h50" stroke="var(--ink-3)" stroke-dasharray="2 4" />
+      <g {...mono}><text x="352" y="72">USB</text></g>
+    </Fragment>
+  )}
+  {name === 'voice' && (
+    <Fragment>
+      <path d="M0 80H400" stroke="var(--hair-2)" stroke-dasharray="2 4" />
+      <g stroke="var(--blue)" stroke-width="2.2">
+        {[8, 14, 26, 18, 40, 56, 34, 22, 48, 62, 44, 28, 16, 30, 52, 38, 20, 12, 24, 10].map((h, i) => <path d={`M${40 + i * 10} ${80 - h / 2}v${h}`} />)}
+      </g>
+      <circle cx="320" cy="80" r="34" stroke="var(--magenta)" opacity=".7" />
+      <circle cx="320" cy="80" r="22" stroke="var(--magenta)" opacity=".45" />
+      <circle cx="320" cy="80" r="10" stroke="var(--teal)" />
+    </Fragment>
+  )}
+  {name === 'instrument' && (
+    <Fragment>
+      <g stroke="var(--ink-3)">{[0, 1, 2, 3, 4, 5].map((i) => <path d={`M20 ${40 + i * 16}H380`} />)}</g>
+      <path d="M20 72H380" stroke="var(--magenta)" />
+      <path d="M20 104 C 120 104, 140 92, 200 104 S 300 116, 380 104" stroke="var(--blue)" />
+      <g stroke="var(--ink-2)">{[80, 160, 240, 320].map((x) => <path d={`M${x} 30v100`} />)}</g>
+      <circle cx="200" cy="72" r="4" fill="var(--teal)" stroke="none" />
+    </Fragment>
+  )}
+  {name === 'lifi' && (
+    <Fragment>
+      <path d="M70 28h60l-10 18H80z" stroke="var(--ink-2)" />
+      <g stroke="var(--yellow)" opacity=".9"><path d="M84 50L40 140" /><path d="M100 50v90" /><path d="M116 50l44 90" /></g>
+      <path d="M30 140h140" stroke="var(--ink-3)" />
+      <g stroke="var(--blue)"><path d="M190 80h40" stroke-dasharray="2 4" /></g>
+      <rect x="240" y="44" width="120" height="72" rx="12" stroke="var(--ink-2)" />
+      <rect x="258" y="60" width="36" height="36" rx="6" stroke="var(--magenta)" />
+      <g stroke="var(--ink-3)"><path d="M306 64h38M306 76h30M306 88h38" /></g>
+      <g {...mono}><text x="258" y="134">MPSOC · YOCTO</text></g>
+    </Fragment>
+  )}
+  {name === 'air' && (
+    <Fragment>
+      <path d="M20 130 C 70 120, 100 70, 150 80 S 230 120, 280 60 S 350 40, 380 50" stroke="var(--teal)" />
+      <path d="M20 130H380" stroke="var(--hair-2)" />
+      <g fill="var(--ink-3)" stroke="none">
+        {[[40, 40, 2], [70, 60, 1.5], [110, 30, 2.5], [150, 50, 1.5], [190, 26, 2], [230, 46, 1.5], [270, 22, 2], [320, 30, 1.5], [350, 90, 2], [300, 100, 1.5], [90, 100, 1.5]].map(([x, y, r]) => <circle cx={x} cy={y} r={r} />)}
+      </g>
+      <g {...mono}><text x="20" y="152">AIR QUALITY</text></g>
+    </Fragment>
+  )}
+  {name === 'mesh' && (
+    <Fragment>
+      <g stroke="var(--hair-2)"><path d="M200 80L80 40M200 80L80 120M200 80L320 40M200 80L320 120M80 40L80 120M320 40L320 120M200 80L200 20" /></g>
+      <rect x="176" y="62" width="48" height="36" rx="9" stroke="var(--blue)" />
+      <g stroke="var(--ink-2)"><circle cx="80" cy="40" r="10" /><circle cx="80" cy="120" r="10" /><circle cx="320" cy="40" r="10" /><circle cx="320" cy="120" r="10" /><circle cx="200" cy="20" r="8" /></g>
+      <circle cx="80" cy="40" r="3" fill="var(--teal)" stroke="none" /><circle cx="320" cy="120" r="3" fill="var(--magenta)" stroke="none" />
+      <g {...mono}><text x="168" y="150">ONEM2M</text></g>
+    </Fragment>
+  )}
+  {name === 'midi' && (
+    <Fragment>
+      <rect x="40" y="30" width="320" height="100" rx="14" stroke="var(--ink-2)" />
+      <g stroke="var(--ink-3)">{[0, 1, 2, 3].map((i) => <circle cx={84 + i * 52} cy="62" r="13" />)}</g>
+      <g stroke="var(--magenta)">{[0, 1, 2, 3].map((i) => <path d={`M${84 + i * 52} 62l${[6, -4, 8, -7][i]} -9`} />)}</g>
+      <g stroke="var(--ink-3)">{[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <rect x={60 + i * 36} y="94" width="22" height="22" rx="5" />)}</g>
+      <rect x="132" y="94" width="22" height="22" rx="5" stroke="var(--blue)" />
+      <rect x="240" y="94" width="22" height="22" rx="5" stroke="var(--teal)" />
+      <rect x="300" y="44" width="40" height="36" rx="6" stroke="var(--ink-3)" />
+    </Fragment>
+  )}
+  {name === 'keys' && (
+    <Fragment>
+      <rect x="20" y="28" width="360" height="110" rx="14" stroke="var(--ink-2)" />
+      <g stroke="var(--ink-3)">
+        {[0, 1, 2].map((r) => Array.from({ length: 11 - r }, (_, c) => <rect x={36 + r * 14 + c * 30} y={42 + r * 30} width="24" height="24" rx="5" />))}
+      </g>
+      <rect x="106" y="114" width="186" height="16" rx="5" stroke="var(--ink-3)" />
+      <rect x="36" y="42" width="24" height="24" rx="5" stroke="var(--blue)" />
+      <rect x="230" y="72" width="24" height="24" rx="5" stroke="var(--magenta)" />
+    </Fragment>
+  )}
+  {name === 'face' && (
+    <Fragment>
+      <g stroke="var(--blue)"><path d="M140 30h-20v20M260 30h20v20M140 140h-20v-20M260 140h20v-20" /></g>
+      <ellipse cx="200" cy="84" rx="44" ry="54" stroke="var(--ink-2)" />
+      <g stroke="var(--teal)"><rect x="170" y="66" width="20" height="12" rx="4" /><rect x="210" y="66" width="20" height="12" rx="4" /></g>
+      <path d="M182 108q18 12 36 0" stroke="var(--magenta)" />
+      <g {...mono}><text x="296" y="44">FACE</text><text x="296" y="74">EYES</text><text x="296" y="112">SMILE</text></g>
+      <g stroke="var(--ink-3)" stroke-dasharray="2 4"><path d="M230 72h60M218 110h72" /></g>
+    </Fragment>
+  )}
+  {name === 'gesture' && (
+    <Fragment>
+      <path d="M40 120 C 90 30, 150 30, 190 80 S 280 140, 360 40" stroke="var(--magenta)" stroke-dasharray="1 7" stroke-width="2.4" />
+      <g fill="var(--blue)" stroke="none">{[[40, 120], [110, 50], [190, 80], [270, 110], [360, 40]].map(([x, y]) => <circle cx={x} cy={y} r="4" />)}</g>
+      <g stroke="var(--ink-3)"><circle cx="40" cy="120" r="12" /><circle cx="360" cy="40" r="12" /></g>
+      <g {...mono}><text x="290" y="150">SCIKIT-LEARN</text></g>
+    </Fragment>
+  )}
+  {name === 'clock' && (
+    <Fragment>
+      <g>
+        {Array.from({ length: 24 }, (_, i) => {
+          const a = (i / 24) * Math.PI * 2 - Math.PI / 2;
+          const on = i < 10;
+          return <circle cx={200 + Math.cos(a) * 62} cy={80 + Math.sin(a) * 62} r="3.2" fill={on ? (i < 5 ? 'var(--blue)' : 'var(--magenta)') : 'var(--hair-2)'} stroke="none" />;
+        })}
+      </g>
+      <circle cx="200" cy="80" r="46" stroke="var(--ink-3)" />
+      <path d="M200 80V50M200 80l22 10" stroke="var(--ink-2)" />
+      <path d="M290 60a24 24 0 0 1 0 40M302 50a38 38 0 0 1 0 60" stroke="var(--teal)" />
+      <g {...mono}><text x="40" y="84">NTP</text></g>
+    </Fragment>
+  )}
+  {name === 'assistant' && (
+    <Fragment>
+      <circle cx="120" cy="80" r="40" stroke="var(--ink-2)" />
+      <g fill="var(--blue)" stroke="none"><circle cx="100" cy="80" r="4" /></g>
+      <circle cx="114" cy="80" r="4" fill="var(--red)" stroke="none" /><circle cx="128" cy="80" r="4" fill="var(--yellow)" stroke="none" /><circle cx="142" cy="80" r="4" fill="var(--green)" stroke="none" />
+      <path d="M176 80h50" stroke="var(--ink-3)" stroke-dasharray="2 4" />
+      <path d="M240 50h100v60H240z" stroke="var(--ink-2)" />
+      <path d="M262 110v20h56v-20M290 50V30" stroke="var(--ink-3)" />
+      <path d="M268 80h44" stroke="var(--magenta)" />
+      <g {...mono}><text x="246" y="150">CORTEX-A53</text></g>
+    </Fragment>
+  )}
+  {name === 'board' && (
+    <Fragment>
+      <rect x="40" y="24" width="320" height="112" rx="10" stroke="var(--ink-2)" />
+      <rect x="80" y="52" width="56" height="56" rx="6" stroke="var(--blue)" />
+      <g stroke="var(--ink-3)">{[0, 1, 2, 3, 4].map((i) => <path d={`M${88 + i * 10} 52v-10M${88 + i * 10} 108v10`} />)}</g>
+      <g stroke="var(--magenta)">{[0, 1, 2, 3].map((i) => <rect x={170 + i * 42} y="48" width="30" height="30" rx="4" />)}</g>
+      <g stroke="var(--ink-3)"><path d="M136 80h34M184 78v20h-40" /><rect x="170" y="96" width="70" height="24" rx="4" /></g>
+      <circle cx="330" cy="110" r="6" stroke="var(--teal)" />
+      <g {...mono}><text x="258" y="114">IDEX</text></g>
+    </Fragment>
+  )}
+  {name === 'printer' && (
+    <Fragment>
+      <path d="M80 20v120M320 20v120M80 30h240" stroke="var(--ink-2)" />
+      <rect x="180" y="24" width="40" height="22" rx="4" stroke="var(--blue)" />
+      <path d="M200 46l-4 10h8z" stroke="var(--blue)" />
+      <path d="M110 130h180" stroke="var(--ink-2)" />
+      <g stroke="var(--magenta)">{[0, 1, 2, 3, 4, 5].map((i) => <path d={`M${150 + i * 2} ${124 - i * 10}h${100 - i * 4}`} />)}</g>
+      <path d="M60 140h280" stroke="var(--hair-2)" />
+      <g {...mono}><text x="326" y="152">MARLIN</text></g>
+    </Fragment>
+  )}
+  {name === 'balance' && (
+    <Fragment>
+      <path d="M60 110l280 -24" stroke="var(--ink-2)" />
+      <path d="M200 98l-16 36h32z" stroke="var(--ink-3)" />
+      <path d="M40 140h320" stroke="var(--hair-2)" />
+      <rect x="160" y="52" width="80" height="34" rx="6" stroke="var(--blue)" />
+      <g stroke="var(--ink-3)"><path d="M176 64h20M176 74h14" /></g>
+      <circle cx="222" cy="69" r="6" stroke="var(--magenta)" />
+      <g {...mono}><text x="40" y="40">IMU</text><text x="300" y="40">2 CH</text></g>
+    </Fragment>
+  )}
+  {name === 'paint' && (
+    <Fragment>
+      {['var(--blue)', 'var(--magenta)', 'var(--teal)', 'var(--yellow)'].map((c, i) => (
+        <Fragment>
+          <rect x={70 + i * 70} y="20" width="40" height="56" rx="8" stroke={c} />
+          <path d={`M${90 + i * 70} 76 C ${90 + i * 70} 100, 200 96, 200 112`} stroke={c} opacity=".7" />
+        </Fragment>
+      ))}
+      <path d="M170 112h60l-8 32h-44z" stroke="var(--ink-2)" />
+      <g {...mono}><text x="10" y="152">4 PIGMENTS</text></g>
+    </Fragment>
+  )}
+  {name === 'wheel' && (
+    <Fragment>
+      <circle cx="200" cy="96" r="52" stroke="var(--ink-2)" />
+      <circle cx="200" cy="96" r="38" stroke="var(--ink-3)" />
+      <g stroke="var(--hair-2)">{[0, 1, 2, 3, 4, 5].map((i) => { const a = (i / 6) * Math.PI; return <path d={`M${200 - Math.cos(a) * 38} ${96 - Math.sin(a) * 38}L${200 + Math.cos(a) * 38} ${96 + Math.sin(a) * 38}`} />; })}</g>
+      <path d="M150 44h100" stroke="var(--blue)" stroke-width="2" />
+      <path d="M40 148h320" stroke="var(--hair-2)" />
+      <path d="M262 40a70 70 0 0 1 20 40" stroke="var(--magenta)" />
+      <path d="M138 40a70 70 0 0 0 -20 40" stroke="var(--magenta)" />
+    </Fragment>
+  )}
+  {name === 'pendulum' && (
+    <Fragment>
+      <path d="M200 120L226 30" stroke="var(--ink-2)" stroke-width="1.6" />
+      <rect x="214" y="18" width="28" height="22" rx="5" stroke="var(--blue)" />
+      <circle cx="180" cy="128" r="14" stroke="var(--ink-2)" /><circle cx="220" cy="128" r="14" stroke="var(--ink-2)" />
+      <path d="M40 142h320" stroke="var(--hair-2)" />
+      <path d="M200 120V30" stroke="var(--ink-3)" stroke-dasharray="2 4" />
+      <path d="M200 50a24 24 0 0 1 18 -6" stroke="var(--magenta)" />
+      <g {...mono}><text x="260" y="64">θ · IMU</text></g>
+    </Fragment>
+  )}
+</svg>

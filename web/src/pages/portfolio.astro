@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import WorkCard from '../components/WorkCard.astro';
+import Art from '../components/Art.astro';
+import { allWork, workHref } from '../data/work';
+
+const work = await allWork();
+const products = work.filter((w) => w.data.group === 'product');
+const builds = work.filter((w) => w.data.group === 'build');
+// An uneven grid: one tall card, two beside it, a wide one, three, two, and a wide one to close.
+const layout = ['b1', 'b2 g2', 'b3 g3', 'b4', 'b5', 'b5 g2', 'b5 g3', 'b6 g2', 'b6 g3', 'b4'];
+---
+<Base
+  title="Portfolio"
+  path="/portfolio"
+  description="Hardware products from wearables and a 5G RedCap gateway to an IEEE 802.15.4 RF stack and a BLDC motor controller, plus twelve personal builds from 2017 to 2019."
+>
+  <header class="page-head">
+    <div>
+      <span class="eyebrow rv"><b></b>Portfolio</span>
+      <h1 class="rv d1">From radio<br /><span class="dim">to</span> <em>rotor.</em></h1>
+    </div>
+    <p class="lede rv d2">Products from my current role, my independent practice and my years in a university research lab, then the personal builds from 2017 to 2019 where it started.</p>
+  </header>
+
+  <section class="block tight" aria-labelledby="products-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Products</span>
+        <h2 class="rv d1" id="products-title">Products<br /><span>and platforms.</span></h2>
+      </div>
+      <p class="rv d2">The products I have worked on since 2019, described as they appear on my resume.</p>
+    </div>
+    <div class="bento">
+      {products.map((item, i) => <WorkCard item={item} cls={layout[i % layout.length]} />)}
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="builds-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Personal builds · 2017 – 2019</span>
+        <h2 class="rv d1" id="builds-title">Where it<br /><span>started.</span></h2>
+      </div>
+      <p class="rv d2">Twelve builds from my student years: printers, robots, controllers, IoT devices and computer vision.</p>
+    </div>
+    <div class="builds">
+      {builds.map((b, i) => (
+        <a href={workHref(b.id)} class={`shell build rv ${['', 'd1', 'd2'][i % 3]}`}>
+          <div class="core">
+            <div class="art"><Art name={b.data.art} /></div>
+            <span class="k mono">{b.data.period}</span>
+            <h3>{b.data.title}</h3>
+            <p>{b.data.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

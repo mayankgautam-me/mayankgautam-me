@@ -1,0 +1,103 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** The page's path as Cloudflare serves it (html_handling auto-trailing-slash): '/', '/about', '/pages/portfolio/x'. The files are about.html and so on, so the old .html URLs still resolve. */
+  path: string;
+  /** Which nav entry is current; defaults to path. */
+  section?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+const { title, description, path, section = path, type = 'website', noindex = false } = Astro.props;
+const canonical = new URL(path, SITE.url).href;
+const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} · ${SITE.name}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#1a1b26" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#e1e2e7" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE.name}: blog`} href="/rss.xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content={Astro.generator} />
+  <script is:inline>
+    // Scroll reveal is an enhancement: content stays visible unless all of these hold.
+    (function () {
+      var d = document.documentElement;
+      if ('IntersectionObserver' in window && document.visibilityState === 'visible' &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reveal-on');
+    })();
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grain" aria-hidden="true"></div>
+  <Nav current={section} />
+  <main class="wrap" id="main">
+    <slot />
+    <Footer />
+  </main>
+  <script>
+    const root = document.documentElement;
+    const burger = document.getElementById('burger');
+    const sheet = document.getElementById('sheet');
+    const setMenu = (open: boolean) => {
+      document.body.classList.toggle('menu-open', open);
+      burger?.setAttribute('aria-expanded', String(open));
+      burger?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) sheet?.querySelector('a')?.focus({ preventScroll: true });
+    };
+    burger?.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+    sheet?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); burger?.focus(); }
+    });
+    matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+    if (root.classList.contains('reveal-on')) {
+      const items = document.querySelectorAll('.rv');
+      const showAll = () => { items.forEach((el) => el.classList.add('in')); io.disconnect(); };
+      const seen = new WeakSet<Element>();
+      let reported = 0;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!seen.has(e.target)) { seen.add(e.target); reported++; }
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+      items.forEach((el) => io.observe(el));
+      // The observer reports every element once right after observe(). If it has not within
+      // 1.5 s (a throttled or headless renderer), it cannot be trusted to reveal: show everything.
+      setTimeout(() => { if (reported < items.length) showAll(); }, 1500);
+      // Never leave content hidden: a tab sent to the background or a print shows everything.
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') showAll(); });
+      window.addEventListener('beforeprint', showAll);
+    }
+  </script>
+</body>
+</html>

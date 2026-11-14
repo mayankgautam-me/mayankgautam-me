@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { INTRO, EXPERIENCE, SKILLS, EDUCATION, OPEN_SOURCE, SITE } from '../data/site';
+---
+<Base
+  title="Resume"
+  path="/resume"
+  description="Resume of Mayank Gautam, embedded engineer: experience from 2017 to now, skills across board, firmware, wireless, Linux, cloud and apps, and education."
+>
+  <header class="page-head">
+    <div>
+      <span class="eyebrow rv"><b></b>Resume</span>
+      <h1 class="rv d1">Mayank <em>Gautam</em></h1>
+      <p class="print-only">Embedded engineer · {SITE.place} · {SITE.email} · mayankgautam.me · github.com/mayankgautam-me · linkedin.com/in/mayankgautam-me</p>
+    </div>
+    <div class="rv d2">
+      <p class="lede">{INTRO}</p>
+      <div class="ctas no-print" style="margin-top:28px">
+        <button class="btn ghost" type="button" id="print">Print or save as PDF <span class="dot"><Arrow kind="print" /></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="block tight" aria-labelledby="exp-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Experience</span>
+        <h2 class="rv d1" id="exp-title">Experience</h2>
+      </div>
+      <p class="rv d2">From personal builds in 2017 to connected devices today, newest first.</p>
+    </div>
+    <ol class="timeline" role="list" style="list-style:none">
+      {EXPERIENCE.map((r) => (
+        <li class="shell t-item rv">
+          <div class="core">
+            <div class="t-when mono">
+              <span>{r.from === r.to ? r.from : `${r.from} – ${r.to}`}</span>
+              {r.current && <span class="now"><b aria-hidden="true"></b>Current</span>}
+            </div>
+            <div>
+              <h3>{r.title}</h3>
+              {r.org && <div class="org">{r.org}</div>}
+              <p>{r.summary}</p>
+              {r.details && <ul>{r.details.map((d) => <li>{d}</li>)}</ul>}
+              {r.tags && <div class="tags">{r.tags.map((t) => <span>{t}</span>)}</div>}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="skills-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Skills</span>
+        <h2 class="rv d1" id="skills-title">What I build</h2>
+      </div>
+    </div>
+    <div class="skill-table rv">
+      {SKILLS.map((s) => <div class="skill-row"><h3>{s.area}</h3><p>{s.items}</p></div>)}
+    </div>
+  </section>
+
+  <section class="block tight" aria-labelledby="edu-title">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Education</span>
+        <h2 class="rv d1" id="edu-title">Education</h2>
+      </div>
+    </div>
+    <div class="shell t-item rv">
+      <div class="core">
+        <div class="t-when mono"><span>{EDUCATION.from} – {EDUCATION.to}</span></div>
+        <div><h3>{EDUCATION.degree}</h3><div class="org">{EDUCATION.field}</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tight" aria-labelledby="links-title" style="padding-bottom:40px">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow rv"><b></b>Open source and links</span>
+        <h2 class="rv d1" id="links-title">Elsewhere</h2>
+      </div>
+    </div>
+    <div class="links rv">
+      {OPEN_SOURCE.map((o) => (
+        <a href={o.href}><span class="l"><small class="mono">{o.name}</small><span>{o.text}</span></span><span class="dot"><Arrow /></span></a>
+      ))}
+      <a href={`mailto:${SITE.email}`}><span class="l"><small class="mono">Email</small><span>{SITE.email}</span></span><span class="dot"><Arrow /></span></a>
+      <a href={SITE.linkedin}><span class="l"><small class="mono">LinkedIn</small><span>linkedin.com/in/mayankgautam-me</span></span><span class="dot"><Arrow /></span></a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.getElementById('print')?.addEventListener('click', () => window.print());
+</script>

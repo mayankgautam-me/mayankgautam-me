@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #1a1b26; } .ring { stroke: #3b4261; } .m { stroke: #c0caf5; }
+    @media (prefers-color-scheme: light) { .bg { fill: #e1e2e7; } .ring { stroke: #b6bfd9; } .m { stroke: #3760bf; } }
+  </style>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7aa2f7" /><stop offset=".6" stop-color="#bb9af7" /><stop offset="1" stop-color="#73daca" />
+    </linearGradient>
+  </defs>
+  <rect class="bg" width="64" height="64" rx="16" />
+  <rect class="ring" x="4.5" y="4.5" width="55" height="55" rx="12" fill="none" stroke-width="1.5" />
+  <path class="m" d="M16 44V21l10 14 10-14v23" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="46" cy="40" r="5" fill="url(#g)" />
+</svg>

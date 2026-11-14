@@ -1,0 +1,11 @@
+---
+// The trailing arrow used in island buttons and link rows. Decorative.
+interface Props { kind?: 'arrow' | 'mail' | 'back' | 'print' }
+const { kind = 'arrow' } = Astro.props;
+---
+<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {kind === 'arrow' && <path d="M4.5 11.5l7-7M6 4.5h5.5V10" />}
+  {kind === 'mail' && <path d="M2.5 4.5h11v7h-11zM2.5 4.5L8 9l5.5-4.5" />}
+  {kind === 'back' && <path d="M11.5 11.5l-7-7M10 4.5H4.5V10" />}
+  {kind === 'print' && <path d="M4.5 6V2.5h7V6M4.5 11.5h-2v-5.5h11v5.5h-2M4.5 9.5h7v4h-7z" />}
+</svg>

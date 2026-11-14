@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+<Base
+  title="Blog"
+  path="/blog"
+  description="Notes from Mayank Gautam on embedded engineering, tools and the setup behind the work."
+>
+  <header class="page-head">
+    <div>
+      <span class="eyebrow rv"><b></b>Blog</span>
+      <h1 class="rv d1">Notes from<br /><span class="dim">the</span> <em>bench.</em></h1>
+    </div>
+    <p class="lede rv d2">Writing on embedded work, tools and the setup behind it. Follow along with the <a href="/rss.xml" style="text-decoration:underline;text-underline-offset:3px">RSS feed</a>.</p>
+  </header>
+
+  <section class="block tight" aria-label="Posts">
+    <div class="posts">
+      {posts.map((p) => (
+        <a href={`/blog/${p.id}`} class="shell post-card rv">
+          <div class="core">
+            <div class="when mono">
+              <time datetime={p.data.date.toISOString().slice(0, 10)}>{fmt(p.data.date)}</time>
+              {p.data.draft && <span class="eyebrow draft"><b></b>Draft</span>}
+            </div>
+            <div>
+              <h2>{p.data.title}</h2>
+              <p>{p.data.description}</p>
+            </div>
+            <span class="links"><span class="dot"><Arrow /></span></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
