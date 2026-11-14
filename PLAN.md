@@ -25,7 +25,7 @@ kind: web-pages
 - [x] Adopt the project standard: site moved to web/public, wrangler.jsonc, CI on GitHub Actions {#web-adopt}
 - [x] Cloudflare token stored with make cf-login (account mayankgautam-me) {#web-cf-login}
 - [x] First production deploy with make web-deploy ENV=production CONFIRM=production {#web-first-deploy}
-- [ ] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
+- [x] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
 - [x] Live site checked in the browser {#web-live-check}
 - [x] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
 
