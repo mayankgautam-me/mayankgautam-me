@@ -64,6 +64,7 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
   <slot name="head" />
 </head>
 <body>
+  <div class="loadbar" aria-hidden="true"></div>
   <a class="skip" href="#main">Skip to content</a>
   <div class="mesh" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="grain" aria-hidden="true"></div>
@@ -88,6 +89,19 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
       if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); burger?.focus(); }
     });
     matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+    // Page loads: a link click to another page of this site shows the load bar until the next page
+    // replaces this one. pageshow clears it when the browser restores this page from its back/forward cache.
+    document.addEventListener('click', (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.('a');
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || /\.(xml|pdf|svg|png|jpe?g)$/i.test(url.pathname)) return;
+      if (url.pathname === location.pathname && url.search === location.search) return;
+      root.classList.add('navigating');
+    });
+    window.addEventListener('pageshow', () => root.classList.remove('navigating'));
 
     // Theme toggle: system -> light -> dark -> system. The browser's own UI colour follows the choice.
     const themeBtn = document.getElementById('theme');
