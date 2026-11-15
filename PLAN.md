@@ -39,5 +39,5 @@ kind: web-pages
 - [x] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
 - [ ] Portfolio personal build pages filled from the owner's facts (waits on the owner) {#web-portfolio-builds}
 - [x] Blog: Mac setup post and a Claude Code setup series of five posts covering every part {#web-blog-series}
-- [~] Blog: list of further post ideas from the repos, without naming projects {#web-blog-ideas}
+- [x] Blog: list of further post ideas from the repos, without naming projects {#web-blog-ideas}
 
