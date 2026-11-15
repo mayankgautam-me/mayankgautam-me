@@ -1,7 +1,7 @@
 ---
 title: "My Claude Code setup, part by part"
 description: "What is in the Claude Code half of my workbench repository, how it gets installed on a Mac, and where each part is explained in detail."
-date: 2026-11-15
+date: 2026-11-15T17:00:00+05:30
 tags: [Claude Code, dotfiles, tooling]
 draft: false
 ---

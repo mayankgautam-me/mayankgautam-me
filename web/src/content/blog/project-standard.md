@@ -1,7 +1,7 @@
 ---
 title: "One set of make commands for every project"
 description: "The project standard I use for firmware, boards, Cloudflare services and apps: the same make commands everywhere, encrypted secrets per GitHub owner, and shared CI workflows."
-date: 2026-11-15
+date: 2026-11-15T15:00:00+05:30
 tags: [make, CI, secrets, Claude Code]
 draft: false
 ---

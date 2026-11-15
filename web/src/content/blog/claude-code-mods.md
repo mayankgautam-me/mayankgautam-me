@@ -1,7 +1,7 @@
 ---
 title: "Four Claude Code mods: status band, session tint, project map and git graph"
 description: "What four small mods for the Claude desktop app show, when they update, how they work inside, and what I learned building them."
-date: 2026-11-15
+date: 2026-11-15T14:00:00+05:30
 tags: [Claude Code, mods, tooling]
 draft: false
 ---

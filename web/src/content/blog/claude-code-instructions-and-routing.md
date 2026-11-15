@@ -1,7 +1,7 @@
 ---
 title: "My Claude Code instructions and how they route work"
 description: "My global CLAUDE.md section by section, the session-start hook that turns its routing table into a per-project profile, and the settings.json around them."
-date: 2026-11-15
+date: 2026-11-15T16:00:00+05:30
 tags: [Claude Code, tooling, workflow]
 draft: false
 ---

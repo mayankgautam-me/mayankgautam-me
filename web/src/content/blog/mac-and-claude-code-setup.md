@@ -1,7 +1,7 @@
 ---
 title: "My Mac setup, in one repository"
 description: "How one public repository sets up my Mac: apps, shell, terminal, git, runtimes, macOS settings and Claude Code, with one clone and one command."
-date: 2026-11-15
+date: 2026-11-15T18:00:00+05:30
 tags: [macOS, dotfiles, Homebrew, zsh, Claude Code]
 draft: false
 ---

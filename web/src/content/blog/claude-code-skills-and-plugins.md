@@ -1,7 +1,7 @@
 ---
 title: "Every skill and plugin in my Claude Code setup, and why"
 description: "The third-party skills and plugins I have installed in Claude Code, what each is for, how a session picks one, and how they are pinned."
-date: 2026-11-15
+date: 2026-11-15T13:00:00+05:30
 tags: [Claude Code, skills, plugins, embedded]
 draft: false
 ---

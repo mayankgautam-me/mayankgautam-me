@@ -36,8 +36,8 @@ kind: web-pages
 - [x] Theme toggle in the nav: system, light, dark; remembered per browser, no flash on load {#web-theme-toggle}
 - [ ] Theme toggle deployed to production (the owner runs the deploy) {#web-theme-deploy}
 - [x] Portfolio product pages filled from the projects' docs, technical and unnamed {#web-portfolio-products}
-- [~] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
+- [x] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
 - [ ] Portfolio personal build pages filled from the owner's facts (waits on the owner) {#web-portfolio-builds}
-- [~] Blog: Mac setup post and a Claude Code setup series of five posts covering every part {#web-blog-series}
+- [x] Blog: Mac setup post and a Claude Code setup series of five posts covering every part {#web-blog-series}
 - [~] Blog: list of further post ideas from the repos, without naming projects {#web-blog-ideas}
 
