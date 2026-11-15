@@ -34,7 +34,7 @@ You request both as bit strings. In nRF Connect SDK they are Kconfig options:
 ```
 CONFIG_LTE_LC_PSM_MODULE=y
 CONFIG_LTE_PSM_REQ=y
-CONFIG_LTE_PSM_REQ_RPTAU="00101000"
+CONFIG_LTE_PSM_REQ_RPTAU="00100101"
 CONFIG_LTE_PSM_REQ_RAT="00000101"
 ```
 
@@ -54,7 +54,7 @@ For the extended T3412 the unit bits are:
 | 101 | 1 min |
 | 110 | 320 h |
 
-My target is 5 hours. The comment in my config says the value I use gives 5 hours, but when I decode the string with this table, `00101000` is unit `001` (1 h) times 8, which is 8 hours, and 5 hours would be `00100101`. I found that while writing this post, by decoding the string by hand instead of trusting my own comment. I have not yet checked it against a granted value on the bench, so treat my string as the thing to verify, not copy. The general lesson is the useful part: write the decode next to every timer string, and check it against what the modem reports back, because a comment can be wrong and the network does not care what the comment says.
+My target is 5 hours: unit `001` (1 h) times `00101` (5), so `00100101`. My config used to say `00101000` with a comment claiming 5 hours, but that string is unit `001` times 8, which is 8 hours. I found it while writing this post, by decoding the string by hand instead of trusting my own comment, and fixed the config. The general lesson is the useful part: write the decode next to every timer string, and check it against what the modem reports back, because a comment can be wrong and the network does not care what the comment says.
 
 Why a long T3412 at all, if a cycle happens every 30 minutes? The device re-attaches explicitly on each cycle, so the TAU timer only keeps the network from deregistering it. If you would rather rely on PSM alone, T3412 has to match your reporting interval.
 
