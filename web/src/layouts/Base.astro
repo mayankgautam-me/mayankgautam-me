@@ -112,6 +112,18 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
       el.classList.remove('go'); void el.offsetWidth; el.classList.add('go');
       startedAt = performance.now();
     });
+    // The swap moves the bar into the new page, which would restart its CSS animation from the beginning:
+    // hold its current width across the swap instead.
+    let heldAt = '';
+    document.addEventListener('astro:before-swap', () => {
+      const el = bar(); if (el?.classList.contains('go')) heldAt = getComputedStyle(el).transform;
+    });
+    document.addEventListener('astro:after-swap', () => {
+      const el = bar(); if (!el || !heldAt) return;
+      el.style.animation = 'none';
+      el.style.transform = heldAt;
+      heldAt = '';
+    });
     document.addEventListener('astro:page-load', () => {
       const el = bar(); if (!el || !el.classList.contains('go')) return;
       const wait = Math.max(0, 300 - (performance.now() - startedAt));
