@@ -260,7 +260,6 @@ It costs a few things.
 
 - **A lot of make and shell.** Twelve thousand lines is real code to maintain, and easy to get subtly wrong. The tests are why I trust it.
 - **Touch ID, often.** Every staging and production secret needs a fingerprint, and every firmware build is signed with the real key, so `make build` asks once per firmware part. The image I test is the image I ship, but I press the sensor a lot.
-- **One CI key per project, for staging and production.** Today the production CI key is the same age key as the staging one, so a leaked CI key reaches both.
 - **GitHub's Free plan.** The included Actions usage is $12 a month, and macOS minutes are the most expensive, so macOS jobs are off unless a repository variable turns them on.
 
 It also does not do some things, on purpose.
