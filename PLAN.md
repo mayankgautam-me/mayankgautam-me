@@ -37,6 +37,7 @@ kind: web-pages
 - [x] Theme toggle deployed to production {#web-theme-deploy}
 - [x] Page loads show a progress bar on link clicks, and links prefetch on hover {#web-load-feedback}
 - [x] The load bar carries over to the arriving page and finishes there, so it shows on every link {#web-load-carry}
+- [x] Client-side navigation (Astro ClientRouter): the page stays live, so the load bar moves from the click until the next page swaps in {#web-client-router}
 - [x] Portfolio product pages filled from the projects' docs, technical and unnamed {#web-portfolio-products}
 - [x] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
 - [x] Portfolio personal build pages kept short (the owner chose to keep them as they are) {#web-portfolio-builds}

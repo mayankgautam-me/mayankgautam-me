@@ -96,5 +96,6 @@ import { INTRO, EXPERIENCE, SKILLS, EDUCATION, OPEN_SOURCE, SITE } from '../data
 </Base>
 
 <script>
-  document.getElementById('print')?.addEventListener('click', () => window.print());
+  // On the document, so it still works when this page is reached again by a client-side swap.
+  document.addEventListener('click', (e) => { if ((e.target as Element | null)?.closest?.('#print')) window.print(); });
 </script>
