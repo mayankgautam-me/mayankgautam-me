@@ -6,7 +6,7 @@ or `- [!]` (blocked).
 
 ## Project {#project}
 tech: make (project-standard), mise, Homebrew, GitHub Actions, sops + age
-files: [Makefile, make/**, Brewfile, mise.toml, secrets.schema, .github/**, .gitignore, .gitattributes, CLAUDE.md, PLAN.md, tests/**, docs/*.md, docs/images/**, scripts/**]
+files: [Makefile, make/**, Brewfile, mise.toml, secrets.schema, .github/**, .gitignore, .gitattributes, LICENSE, CLAUDE.md, PLAN.md, tests/**, docs/*.md, docs/images/**, scripts/**]
 kind: tooling
 - [ ] make setup and make doctor pass on this Mac {#project-setup}
 - [x] Secrets created with make secrets-init {#project-secrets}
