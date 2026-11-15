@@ -123,7 +123,7 @@ I should be careful about what I claim. These are the standard remedy for a supp
 
 There is a risk in the move. On Rev B, VBUS feeds the LEDs directly and also the regulator's input, so a short on VBUS is limited only by the supply. For first power-on I use a bench supply at 5 V with the current limit at 100 mA.
 
-Because the revisions have different budgets, a wrong firmware image is a real hazard: Rev B firmware on a Rev A board would ask a 200 mA regulator for far more than it can give. So firmware images are per revision, and the build refuses to run, and flashing refuses, without one chosen. It is a small thing, and it moves a power mistake from the bench to the build.
+Because the revisions have different budgets, a wrong firmware image is a real hazard: Rev B firmware on a Rev A board would ask a 200 mA regulator for far more than it can give. So firmware images are per revision, and the build refuses to run without one chosen. It is a small thing, and it moves a power mistake from the bench to the build.
 
 ## Diagnostics
 

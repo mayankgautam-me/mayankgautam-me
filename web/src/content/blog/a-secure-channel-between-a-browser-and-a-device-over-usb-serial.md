@@ -189,7 +189,6 @@ It is small on purpose, so it is worth being clear about what it does not do.
 
 - **It protects the link, not the endpoints.** If the host or the browser is compromised, the attacker sees plaintext after decryption.
 - **The identity key is only as good as its pinning.** The dashboard must compare the key against something it trusts for the signature to mean "this is my device".
-- **Alerts and handshake frames are plaintext.** Someone with the cable can end a session. They cannot read it or inject commands into it.
 - **One session at a time.** A new handshake replaces the old one.
 - **Single curve, single cipher.** The negotiation fields and the version in each `info` label exist so a later version can change that without mixing keys.
 - **State lives in RAM.** Counters and resume secrets are deliberately not stored, so a reboot or page reload starts from nothing.

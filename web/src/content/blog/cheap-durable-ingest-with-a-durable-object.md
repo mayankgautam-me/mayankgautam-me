@@ -130,9 +130,9 @@ Both ends need a deadline, or a worker that never comes back holds its place for
 
 ## The cost arithmetic
 
-The $0.01 and $0.38 figures are my measurements and design numbers. The unit prices below are Cloudflare's public list prices as I remember them, not figures from my own source, so check them against the current pricing page before you reuse the sums. I also ignore the free allowances, which only make small deployments cheaper.
+The $0.01 and $0.38 figures are my measurements and design numbers. The unit prices below are Cloudflare's list prices for [Durable Objects](https://developers.cloudflare.com/durable-objects/platform/pricing/) and [R2](https://developers.cloudflare.com/r2/pricing/) at the time of writing. I also ignore the free allowances, which only make small deployments cheaper.
 
-Assumed prices: Durable Object SQLite rows written, $1.00 per million; R2 Class A operations (writes, `put`), $4.50 per million.
+Prices: Durable Object SQLite rows written, $1.00 per million; R2 Class A operations (writes, `put`), $4.50 per million.
 
 Naive, per hour of one stream:
 
