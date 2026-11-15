@@ -40,5 +40,5 @@ kind: web-pages
 - [ ] Portfolio personal build pages filled from the owner's facts (waits on the owner) {#web-portfolio-builds}
 - [x] Blog: Mac setup post and a Claude Code setup series of five posts covering every part {#web-blog-series}
 - [x] Blog: list of further post ideas from the repos, without naming projects {#web-blog-ideas}
-- [~] Blog: seven engineering posts from the ideas (BLE audio, LED budget, antenna matching, USB-serial secure channel, cellular power saving, composite USB debug, presence and D1 reads) {#web-blog-engineering}
+- [~] Blog: seven engineering posts from the ideas (BLE audio, LED budget, antenna matching, USB-serial secure channel, cellular power saving, composite USB debug, presence and D1 reads), plus KiCad to JLCPCB, Durable Object ingest, pin map vs netlist {#web-blog-engineering}
 
