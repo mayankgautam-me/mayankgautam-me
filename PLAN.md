@@ -34,7 +34,7 @@ kind: web-pages
 - [x] Checked in the browser at desktop and phone widths, light and dark {#web-redesign-check}
 - [x] Released and deployed to production (asks first) {#web-redesign-deploy}
 - [x] Theme toggle in the nav: system, light, dark; remembered per browser, no flash on load {#web-theme-toggle}
-- [ ] Theme toggle deployed to production (the owner runs the deploy) {#web-theme-deploy}
+- [x] Theme toggle deployed to production {#web-theme-deploy}
 - [x] Page loads show a progress bar on link clicks, and links prefetch on hover {#web-load-feedback}
 - [x] Portfolio product pages filled from the projects' docs, technical and unnamed {#web-portfolio-products}
 - [x] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
