@@ -107,9 +107,12 @@ svg { display: block; }
   transform: scaleX(0); transform-origin: left; opacity: 0;
 }
 .navigating .loadbar { opacity: 1; animation: loadbar 2.4s cubic-bezier(0.1, 0.7, 0.2, 1) forwards; }
+/* the arriving page picks the bar up part-way and keeps it moving until load (Base.astro finishes it) */
+.arriving .loadbar { opacity: 1; animation: loadbar-arrive 2s cubic-bezier(0.1, 0.7, 0.2, 1) forwards; }
 @keyframes loadbar { 0% { transform: scaleX(0.04); } 100% { transform: scaleX(0.9); } }
+@keyframes loadbar-arrive { 0% { transform: scaleX(0.3); } 100% { transform: scaleX(0.9); } }
 @media (prefers-reduced-motion: reduce) {
-  .navigating .loadbar { animation: none; transform: scaleX(1); opacity: 0.7; }
+  .navigating .loadbar, .arriving .loadbar { animation: none; transform: scaleX(1); opacity: 0.7; }
 }
 @media print { .loadbar { display: none; } }
 

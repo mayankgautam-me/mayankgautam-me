@@ -36,9 +36,10 @@ kind: web-pages
 - [x] Theme toggle in the nav: system, light, dark; remembered per browser, no flash on load {#web-theme-toggle}
 - [x] Theme toggle deployed to production {#web-theme-deploy}
 - [x] Page loads show a progress bar on link clicks, and links prefetch on hover {#web-load-feedback}
+- [x] The load bar carries over to the arriving page and finishes there, so it shows on every link {#web-load-carry}
 - [x] Portfolio product pages filled from the projects' docs, technical and unnamed {#web-portfolio-products}
 - [x] Portfolio employer pages (air quality, 5G gateway, oneM2M) filled the same way {#web-portfolio-employer}
-- [ ] Portfolio personal build pages filled from the owner's facts (waits on the owner) {#web-portfolio-builds}
+- [x] Portfolio personal build pages kept short (the owner chose to keep them as they are) {#web-portfolio-builds}
 - [x] Blog: Mac setup post and a Claude Code setup series of five posts covering every part {#web-blog-series}
 - [x] Blog: list of further post ideas from the repos, without naming projects {#web-blog-ideas}
 - [x] Blog: seven engineering posts from the ideas (BLE audio, LED budget, antenna matching, USB-serial secure channel, cellular power saving, composite USB debug, presence and D1 reads), plus KiCad to JLCPCB, Durable Object ingest, pin map vs netlist {#web-blog-engineering}

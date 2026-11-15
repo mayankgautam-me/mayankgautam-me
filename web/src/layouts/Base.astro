@@ -52,6 +52,14 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch (e) {}
     })();
+    // A link on this site was just clicked (see the click handler below): keep the load bar going here.
+    (function () {
+      try {
+        var t = Number(sessionStorage.getItem('nav-start'));
+        sessionStorage.removeItem('nav-start');
+        if (t && Date.now() - t < 15000) document.documentElement.classList.add('arriving');
+      } catch (e) {}
+    })();
   </script>
   <script is:inline>
     // Scroll reveal is an enhancement: content stays visible unless all of these hold.
@@ -98,10 +106,32 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
       if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || /\.(xml|pdf|svg|png|jpe?g)$/i.test(url.pathname)) return;
-      if (url.pathname === location.pathname && url.search === location.search) return;
+      if (url.pathname === location.pathname && url.search === location.search && url.hash) return;
       root.classList.add('navigating');
+      try { sessionStorage.setItem('nav-start', String(Date.now())); } catch {}
     });
     window.addEventListener('pageshow', () => root.classList.remove('navigating'));
+
+    // On the arriving page the bar keeps growing until the page has loaded, then fills and fades. It stays
+    // at least 350 ms, so a page that opens from the prefetch cache still shows it.
+    if (root.classList.contains('arriving')) {
+      const bar = document.querySelector<HTMLElement>('.loadbar');
+      const shownAt = performance.now();
+      const finish = () => {
+        if (!bar) return;
+        const wait = Math.max(0, 350 - (performance.now() - shownAt));
+        setTimeout(() => {
+          bar.style.transform = getComputedStyle(bar).transform;
+          bar.style.animation = 'none';
+          void bar.offsetWidth;
+          bar.style.transition = 'transform 0.25s ease-out, opacity 0.35s ease 0.2s';
+          bar.style.transform = 'scaleX(1)';
+          bar.style.opacity = '0';
+          setTimeout(() => { root.classList.remove('arriving'); bar.removeAttribute('style'); }, 650);
+        }, wait);
+      };
+      if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish, { once: true });
+    }
 
     // Theme toggle: system -> light -> dark -> system. The browser's own UI colour follows the choice.
     const themeBtn = document.getElementById('theme');
