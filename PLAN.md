@@ -29,8 +29,8 @@ kind: web-pages
 - [x] Live site checked in the browser {#web-live-check}
 - [x] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
 - [x] Pick a design: one sample home page per style; chosen: the high-end layout in Tokyo Night colours, no photos {#web-design-samples}
-- [~] Rebuild the site in Astro, six pages (Home, About, Resume, Portfolio, Blog with a first post, Contact with links only), content aligned with LinkedIn and the GitHub README {#web-astro}
-- [ ] make dev, make check and CI work with the Astro build (needs project-standard 1.8: Astro in the web-pages kind); old URLs keep working {#web-astro-build}
-- [ ] Checked in the browser at desktop and phone widths, light and dark {#web-redesign-check}
+- [x] Rebuild the site in Astro, six pages (Home, About, Resume, Portfolio, Blog with a first post, Contact with links only), content aligned with LinkedIn and the GitHub README {#web-astro}
+- [x] make dev, make check and CI work with the Astro build (needs project-standard 1.8: Astro in the web-pages kind); old URLs keep working {#web-astro-build}
+- [x] Checked in the browser at desktop and phone widths, light and dark {#web-redesign-check}
 - [ ] Released and deployed to production (asks first) {#web-redesign-deploy}
 
