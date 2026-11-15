@@ -3,9 +3,7 @@ title: "My Mac and Claude Code setup, in one repository"
 description: "How one clone and one command set up my Mac, from the apps and dotfiles to the Claude Code mods I use every day."
 date: 2026-11-15
 tags: [macOS, Claude Code, dotfiles]
-# DRAFT: written by Claude from the workbench README for Mayank to edit. Check every line, then set
-# draft to false (the post is built and listed either way; draft only adds the label).
-draft: true
+draft: false
 ---
 
 Everything that sets up my Mac lives in one public repository, [workbench](https://github.com/mayankgautam-me/workbench): the apps, the dotfiles, the macOS settings, the terminal and my Claude Code setup. On a new or freshly formatted Mac, one clone and one command bring it back. On the Mac I already use, one command tells me what has drifted.
