@@ -8,7 +8,7 @@ Embedded engineer in Delhi with more than seven years across the full embedded s
 **Experience**
 
 - Embedded engineer, deep-tech startup, 2024 to now: connected devices from board to cloud, including air-quality monitoring, a 5G RedCap, Wi-Fi and BLE gateway, oneM2M device platforms and Zephyr firmware on Silicon Labs Wi-Fi SoCs
-- Product engineering lead, independent, 2019 to now: more than a dozen hardware products from concept to production, among them wearables, Bluetooth tags and cellular trackers, a BLDC motor controller, USB control decks, voice-capture and meditation devices and a musical instrument, with the boards, firmware, cloud back ends, SaaS and apps around them
+- Product Engineer, independent, 2019 to now: more than a dozen hardware products from concept to production, among them wearables, Bluetooth tags and cellular trackers, a BLDC motor controller, USB control decks, voice-capture and meditation devices and a musical instrument, with the boards, firmware, cloud back ends, SaaS and apps around them
 - Senior project scientist, university research lab, 2022 to 2024: a proprietary IEEE 802.15.4 RF network stack with custom PHY and MAC layers, its GCC build system and CI/CD packaging
 - Project scientist, university research lab, 2019 to 2022: Li-Fi networks on embedded Linux (Xilinx MPSoC, kernel modules, Yocto), Altium boards and OrCAD simulation
 - Electronics engineer intern, 2018: wireless communication, audio processing, analog design, PCB design and assembly

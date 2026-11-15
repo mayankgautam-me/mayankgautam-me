@@ -46,7 +46,7 @@ export const EXPERIENCE: Role[] = [
     tags: ['Zephyr', 'SiWx917', '5G RedCap', 'BLE', 'oneM2M'],
   },
   {
-    title: 'Product engineering lead',
+    title: 'Product Engineer',
     org: 'Independent',
     from: '2019',
     to: 'now',

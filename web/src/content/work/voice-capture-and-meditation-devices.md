@@ -9,6 +9,6 @@ art: voice
 tags: [Audio, Devices]
 ---
 
-Voice-capture and meditation devices are among the more than a dozen hardware products I have taken from concept to production as an independent product engineering lead.
+Voice-capture and meditation devices are among the more than a dozen hardware products I have taken from concept to production as an independent Product Engineer.
 
 Across those products the work covers the boards, the firmware, the cloud back ends, the SaaS and the apps around them.
