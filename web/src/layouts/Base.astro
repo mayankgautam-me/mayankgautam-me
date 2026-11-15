@@ -44,6 +44,16 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
   <meta name="twitter:card" content="summary" />
   <meta name="generator" content={Astro.generator} />
   <script is:inline>
+    // The theme toggle's choice (light or dark), applied before first paint so the page never flashes
+    // the other theme. No choice, or no storage, follows the system setting.
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <script is:inline>
     // Scroll reveal is an enhancement: content stays visible unless all of these hold.
     (function () {
       var d = document.documentElement;
@@ -78,6 +88,32 @@ const fullTitle = path === '/' ? `${SITE.name}, embedded engineer` : `${title} Â
       if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); burger?.focus(); }
     });
     matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
+
+    // Theme toggle: system -> light -> dark -> system. The browser's own UI colour follows the choice.
+    const themeBtn = document.getElementById('theme');
+    const themeMetas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+    const themeColor = { light: '#e1e2e7', dark: '#1a1b26' } as const;
+    const next = { system: 'light', light: 'dark', dark: 'system' } as const;
+    type Mode = keyof typeof next;
+    const applyTheme = (mode: Mode) => {
+      if (mode === 'system') delete root.dataset.theme; else root.dataset.theme = mode;
+      themeMetas.forEach((m) => {
+        const own = m.media.includes('light') ? themeColor.light : themeColor.dark;
+        m.content = mode === 'system' ? own : themeColor[mode];
+      });
+      if (themeBtn) {
+        themeBtn.dataset.mode = mode;
+        themeBtn.setAttribute('aria-label', `Theme: ${mode}. Switch to ${next[mode]}`);
+        themeBtn.title = `Theme: ${mode}`;
+      }
+    };
+    const saved = root.dataset.theme;
+    applyTheme(saved === 'light' || saved === 'dark' ? saved : 'system');
+    themeBtn?.addEventListener('click', () => {
+      const mode = next[(themeBtn.dataset.mode as Mode) || 'system'];
+      try { if (mode === 'system') localStorage.removeItem('theme'); else localStorage.setItem('theme', mode); } catch {}
+      applyTheme(mode);
+    });
 
     if (root.classList.contains('reveal-on')) {
       const items = document.querySelectorAll('.rv');

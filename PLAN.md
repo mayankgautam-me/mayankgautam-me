@@ -33,4 +33,6 @@ kind: web-pages
 - [x] make dev, make check and CI work with the Astro build (needs project-standard 1.8: Astro in the web-pages kind); old URLs keep working {#web-astro-build}
 - [x] Checked in the browser at desktop and phone widths, light and dark {#web-redesign-check}
 - [x] Released and deployed to production (asks first) {#web-redesign-deploy}
+- [x] Theme toggle in the nav: system, light, dark; remembered per browser, no flash on load {#web-theme-toggle}
+- [ ] Theme toggle deployed to production (the owner runs the deploy) {#web-theme-deploy}
 
