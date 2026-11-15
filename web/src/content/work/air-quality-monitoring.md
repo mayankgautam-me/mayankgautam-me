@@ -42,6 +42,6 @@ A device simulator runs the same sequence against a local backend, so the whole 
 
 ## What I did
 
-The repository shows the whole chain from the schematic to the dashboard, and I worked across it: the board, the firmware on the STM32 and the ESP32 modem, and the device-to-backend flow. I also worked on the simulator and the tooling that builds and runs it.
+I worked across the whole chain, from the schematic to the dashboard: the board, the firmware on the STM32 and the ESP32 modem, and the device-to-backend flow. I also worked on the simulator and the tooling that builds and runs it.
 
 Not finished: the firmware's over-the-air update step is a stub that recognises the command but does not fetch an image.

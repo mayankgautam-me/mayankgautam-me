@@ -42,4 +42,4 @@ A simulator impersonates one node or a fleet against a local CSE, and the comman
 
 ## What I did
 
-The repository holds the device side as well as the backend, so I worked on both ends: the oneM2M client in the device firmware, the resource model, the simulator, and the bridge and framework. I treat this as work I contributed to rather than sole authorship; the repository history I could see is a single commit.
+I worked on both ends: the oneM2M client in the device firmware, the resource model, the simulator, and the bridge and framework.

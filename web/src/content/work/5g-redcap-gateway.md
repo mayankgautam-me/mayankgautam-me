@@ -40,4 +40,4 @@ The firmware is a Zephyr 4.3 application for the SiWG917 on Silicon Labs' radio 
 
 ## What I did
 
-I worked on the board and its design documents and on the firmware. The repository history I could see is a single commit, so I am describing my involvement modestly. The firmware is a bring-up application, not a finished product.
+I worked on the board and its design documents, and on the firmware. The firmware is a bring-up application, not a finished product.
