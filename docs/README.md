@@ -21,6 +21,7 @@ committed: a generated PDF is attached to a release.
 - [Profile README](../README.md): the GitHub profile page (not the website)
 - [Architecture](architecture.md): the parts, how they connect, where each runs
 - [Operations](operations.md): deploy, rollback, backup, checks
+- [References](references.md): links to the docs and references the site works from
 
 ## Parts
 

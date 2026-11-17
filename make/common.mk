@@ -1,4 +1,4 @@
-# project-standard v1.0 (managed: refresh with the project-standard skill, put project changes in make/local.mk)
+# project-standard v1.5 (managed: refresh with the project-standard skill, put project changes in make/local.mk)
 #
 # The stage commands, the same in every project. GNU make 3.81 compatible (macOS /usr/bin/make):
 # no .ONESHELL, .SHELLFLAGS, $(file), .RECIPEPREFIX, undefine, != or ::=.
@@ -33,6 +33,19 @@ SECRETS_SCHEMA ?= $(CURDIR)/secrets.schema
 STD_OTA_BUCKET_PROJECT := $(OTA_BUCKET)
 # CI_TEMPLATES_REPO set in make/project.mk wins over the user config (1.7).
 STD_CI_TEMPLATES_REPO_PROJECT := $(CI_TEMPLATES_REPO)
+# KICAD_LIBRARY_PROJECT (owner/name of the shared KiCad library) set in make/project.mk wins over the user config too.
+STD_KICAD_LIBRARY_PROJECT_P := $(KICAD_LIBRARY_PROJECT)
+# (a sub-make reads both from its parent's environment, with the parent's word for where they came from)
+STD_KICAD_LIBRARY_PROJECT_FROM := $(if $(filter file,$(origin KICAD_LIBRARY_PROJECT)),make/project.mk,$(if $(filter environment,$(origin KICAD_LIBRARY_PROJECT)),$(or $(STD_KICAD_LIBRARY_PROJECT_FROM),environment),$(origin KICAD_LIBRARY_PROJECT)))
+# ALTIUM_LIBRARY_PROJECT (owner/name of the shared Altium library, the submodule of an altium part) the same way (1.4).
+STD_ALTIUM_LIBRARY_PROJECT_P := $(ALTIUM_LIBRARY_PROJECT)
+STD_ALTIUM_LIBRARY_PROJECT_FROM := $(if $(filter file,$(origin ALTIUM_LIBRARY_PROJECT)),make/project.mk,$(if $(filter environment,$(origin ALTIUM_LIBRARY_PROJECT)),$(or $(STD_ALTIUM_LIBRARY_PROJECT_FROM),environment),$(origin ALTIUM_LIBRARY_PROJECT)))
+# DOCKER_REGISTRY follows the project's owner like the secrets repo (ghcr.io/<owner, lowercase>). A value from
+# make/project.mk or the environment wins; the user config's is its own owner's and never reaches another owner's project.
+STD_P_DOCKER_REGISTRY := $(DOCKER_REGISTRY)
+STD_P_DOCKER_REGISTRY_FROM := $(origin DOCKER_REGISTRY)
+STD_P_DOCKER_REGISTRY_PARENT := $(STD_DOCKER_REGISTRY_FROM)
+DOCKER_REGISTRY :=
 # The secrets repo follows the project's GitHub owner (1.8). SECRETS_DIR and SECRETS_REMOTE from make/project.mk or
 # the environment, and GITHUB_OWNER from the environment, are captured with their origin and cleared, so what config.mk
 # sets is known apart (config.mk assigns with :=); all three are resolved below. The command line wins over everything.
@@ -49,6 +62,7 @@ SECRETS_REMOTE :=
 STD_CONFIG_OWNER := $(GITHUB_OWNER)
 STD_CONFIG_SECRETS_DIR := $(SECRETS_DIR)
 STD_CONFIG_SECRETS_REMOTE := $(SECRETS_REMOTE)
+STD_CONFIG_DOCKER_REGISTRY := $(DOCKER_REGISTRY)
 ifneq ($(OTA_BUCKET),$(STD_OTA_BUCKET_PROJECT))
 $(warning OTA_BUCKET in $(STD_CONFIG)/config.mk is ignored since project-standard v6: set OTA_BUCKET in make/project.mk and remove it from config.mk)
 OTA_BUCKET := $(STD_OTA_BUCKET_PROJECT)
@@ -61,10 +75,14 @@ endif
 # once per make run (a sub-make reads the exported result), and only when the project root holds .git (a folder, or
 # a worktree's file); without one there is simply no origin.
 # STD_OWNER_FROM says where it came from (ci, origin, config); the user config's owner is the default owner.
+# The same call gives the repository's name, STD_ORIGIN_REPO (without .git): the images' source label links to it.
 ifeq ($(origin STD_ORIGIN_OWNER),undefined)
-STD_ORIGIN_OWNER := $(if $(wildcard $(CURDIR)/.git),$(shell git remote get-url origin 2>/dev/null | sed -n -E 's%^(https?://([^@/]*@)?github\.com/|ssh://git@github\.com/|git@github\.com:)([A-Za-z0-9][A-Za-z0-9-]*)/[A-Za-z0-9._-]+/?$$%\3%p' | tr 'A-Z' 'a-z'))
+STD_ORIGIN_SLUG := $(if $(wildcard $(CURDIR)/.git),$(shell git remote get-url origin 2>/dev/null | sed -n -E 's%^(https?://([^@/]*@)?github\.com/|ssh://git@github\.com/|git@github\.com:)([A-Za-z0-9][A-Za-z0-9-]*)/([A-Za-z0-9._-]+)/?$$%\3 \4%p' | awk '{ sub(/\.git$$/, "", $$2); print tolower($$1), $$2 }'))
+STD_ORIGIN_OWNER := $(word 1,$(STD_ORIGIN_SLUG))
+STD_ORIGIN_REPO := $(word 2,$(STD_ORIGIN_SLUG))
 endif
-export STD_ORIGIN_OWNER
+STD_ORIGIN_REPO ?=
+export STD_ORIGIN_OWNER STD_ORIGIN_REPO
 ifeq ($(strip $(STD_CONFIG_OWNER)),)
 ifeq ($(STD_P_GITHUB_OWNER_FROM),environment)
 STD_CONFIG_OWNER := $(STD_P_GITHUB_OWNER)
@@ -110,6 +128,43 @@ SECRETS_REMOTE := https://github.com/$(GITHUB_OWNER)/secrets.git
 else
 SECRETS_REMOTE :=
 endif
+# std_lc TEXT: TEXT in lowercase (no shell; ghcr.io refuses capitals in an image name).
+std_lc = $(subst A,a,$(subst B,b,$(subst C,c,$(subst D,d,$(subst E,e,$(subst F,f,$(subst G,g,$(subst H,h,$(subst I,i,$(subst J,j,$(subst K,k,$(subst L,l,$(subst M,m,$(subst N,n,$(subst O,o,$(subst P,p,$(subst Q,q,$(subst R,r,$(subst S,s,$(subst T,t,$(subst U,u,$(subst V,v,$(subst W,w,$(subst X,x,$(subst Y,y,$(subst Z,z,$(1)))))))))))))))))))))))))))
+# DOCKER_REGISTRY: make/project.mk or the environment, else the user config's when the project is its owner's, else
+# ghcr.io/<owner> (lowercase). STD_DOCKER_REGISTRY_FROM says which (doctor prints it).
+ifneq ($(strip $(if $(filter environment file command line,$(STD_P_DOCKER_REGISTRY_FROM)),$(STD_P_DOCKER_REGISTRY))),)
+DOCKER_REGISTRY := $(STD_P_DOCKER_REGISTRY)
+STD_DOCKER_REGISTRY_FROM := $(if $(filter file,$(STD_P_DOCKER_REGISTRY_FROM)),make/project.mk,$(if $(filter environment,$(STD_P_DOCKER_REGISTRY_FROM)),$(or $(STD_P_DOCKER_REGISTRY_PARENT),environment),$(STD_P_DOCKER_REGISTRY_FROM)))
+else ifneq ($(and $(STD_SAME_OWNER),$(strip $(STD_CONFIG_DOCKER_REGISTRY))),)
+DOCKER_REGISTRY := $(STD_CONFIG_DOCKER_REGISTRY)
+STD_DOCKER_REGISTRY_FROM := config
+else ifneq ($(strip $(GITHUB_OWNER)),)
+DOCKER_REGISTRY := ghcr.io/$(call std_lc,$(strip $(GITHUB_OWNER)))
+STD_DOCKER_REGISTRY_FROM := owner
+else
+DOCKER_REGISTRY :=
+STD_DOCKER_REGISTRY_FROM :=
+endif
+# KICAD_LIBRARY_PROJECT (owner/name): make/project.mk, else the user config, else <owner>/kicad-library. ci-setup puts
+# the KiCad deploy key there; a hardware part with <part>_LIBRARY := local needs none.
+ifneq ($(strip $(STD_KICAD_LIBRARY_PROJECT_P)),)
+KICAD_LIBRARY_PROJECT := $(strip $(STD_KICAD_LIBRARY_PROJECT_P))
+else ifneq ($(strip $(KICAD_LIBRARY_PROJECT)),)
+STD_KICAD_LIBRARY_PROJECT_FROM := config
+else
+KICAD_LIBRARY_PROJECT := $(if $(strip $(GITHUB_OWNER)),$(strip $(GITHUB_OWNER))/kicad-library)
+STD_KICAD_LIBRARY_PROJECT_FROM := owner
+endif
+# ALTIUM_LIBRARY_PROJECT (owner/name): make/project.mk, else the user config, else <owner>/altium-library. An altium
+# part's setup adds it as the submodule ALTIUM_LIBRARY; ci-setup puts the Altium deploy key there (1.4).
+ifneq ($(strip $(STD_ALTIUM_LIBRARY_PROJECT_P)),)
+ALTIUM_LIBRARY_PROJECT := $(strip $(STD_ALTIUM_LIBRARY_PROJECT_P))
+else ifneq ($(strip $(ALTIUM_LIBRARY_PROJECT)),)
+STD_ALTIUM_LIBRARY_PROJECT_FROM := config
+else
+ALTIUM_LIBRARY_PROJECT := $(if $(strip $(GITHUB_OWNER)),$(strip $(GITHUB_OWNER))/altium-library)
+STD_ALTIUM_LIBRARY_PROJECT_FROM := owner
+endif
 # CI_TEMPLATES_REPO (owner/name) is the repository of the reusable workflows, independent of GITHUB_OWNER (1.7):
 # make/project.mk, else the user config, else the public mayankgautam-me/ci-templates. CI_TEMPLATES_PROJECT is ignored.
 ifneq ($(strip $(STD_CI_TEMPLATES_REPO_PROJECT)),)
@@ -123,6 +178,8 @@ $(error PROJECT is not set: put PROJECT := <name> in make/project.mk)
 endif
 
 export PROJECT PORT_BASE SECRETS_DIR SECRETS_DEFAULT_DIR STD_CONFIG SECRETS_REMOTE GITHUB_OWNER STD_OWNER_FROM STD_CONFIG_OWNER OTA_BUCKET DOCKER_REGISTRY
+export STD_DOCKER_REGISTRY_FROM KICAD_LIBRARY_PROJECT STD_KICAD_LIBRARY_PROJECT_FROM
+export ALTIUM_LIBRARY_PROJECT STD_ALTIUM_LIBRARY_PROJECT_FROM
 export CI_TEMPLATES_REPO STD_TOOLCHAINS SECRETS_SCHEMA
 
 STD_LIB := . $(STD_BIN)/lib.sh
@@ -483,17 +540,22 @@ STD_DIRS_cloud-worker := node_modules dist
 STD_DIRS_espidf := build managed_components
 STD_DIRS_go := bin dist
 STD_DIRS_hardware := outputs
+STD_DIRS_mechanical := outputs
 STD_DIRS_pio := .pio build .platformio
 STD_DIRS_python := .venv dist build .pytest_cache .ruff_cache
+STD_DIRS_silabs := build
 STD_DIRS_web-pages := node_modules dist out .next
 STD_DIRS_zephyr := build
-# docker removes images, no folders
-std_part_dirs = $(foreach d,$(STD_DIRS_$(call std_kind,$(1))) release $(if $(filter hardware,$(call std_kind,$(1))),production),$(call std_dir,$(1))/$(d))
-# release/ (every part: make <part>-release-assets) and production/ (hardware: fab zips) are local copies of what each
-# GitHub Release keeps; no distclean removes them, so teardown does, after the distcleans.
-STD_TEARDOWN_RELEASE_DIRS = $(foreach p,$(PARTS),$(call std_dir,$(p))/release $(if $(filter hardware,$(call std_kind,$(p))),$(call std_dir,$(p))/production))
+# docker removes images, no folders. altium only its .venv (the Altium library's tools, 1.4): its outputs/ come only from
+# the OutJob in Altium (on Windows), so teardown never removes them (make <part>-clean does, when asked for by name).
+STD_DIRS_altium := .venv
+std_part_dirs = $(foreach d,$(STD_DIRS_$(call std_kind,$(1))) release $(if $(filter hardware altium,$(call std_kind,$(1))),production),$(call std_dir,$(1))/$(d))
+# release/ (every part: make <part>-release-assets) and production/ (hardware, altium: fab zips) are local copies of what
+# each GitHub Release keeps; no distclean removes them, so teardown does, after the distcleans.
+STD_TEARDOWN_RELEASE_DIRS = $(foreach p,$(PARTS),$(call std_dir,$(p))/release $(if $(filter hardware altium,$(call std_kind,$(p))),$(call std_dir,$(p))/production))
 STD_TEARDOWN_DIRS = $(foreach p,$(PARTS),$(call std_part_dirs,$(p)))
-std_teardown_clean_only = $(foreach p,$(STD_PART_NAMES),$(if $(filter $(p)-distclean,$(STD_VERB_distclean)),,$(filter $(p)-clean,$(STD_VERB_clean))))
+# the clean of each part whose kind has no distclean; not altium's (it would remove the OutJob's outputs/)
+std_teardown_clean_only = $(foreach p,$(PARTS),$(if $(filter altium,$(call std_kind,$(p))),,$(if $(filter $(call std_name,$(p))-distclean,$(STD_VERB_distclean)),,$(filter $(call std_name,$(p))-clean,$(STD_VERB_clean)))))
 
 include $(foreach k,$(STD_KINDS),make/kinds/$(k).mk)
 
@@ -742,7 +804,8 @@ ci-run:
 
 # Everything CI needs, in one run you start: the CI age key (secrets-ci), a read-only deploy key for the secrets repo
 # (the project's, SECRETS_REMOTE, whose owner/name is also the variable SECRETS_REPO)
-# and, with a hardware part, for the KiCad library (made in ~/.ssh when missing, added to the repo when not there yet,
+# and, with a hardware part, for the KiCad library, with an altium part for the Altium library (made in ~/.ssh when
+# missing, added to the repo when not there yet,
 # its private half stored as the repo secret), and the repository variables. Safe to run again: what exists is kept,
 # the secrets and variables are set again. It prints no values. The GitHub repository must exist first. The reusable
 # workflows' repository (CI_TEMPLATES_REPO) is public and needs no setting; it warns only when that repo is private.
@@ -769,13 +832,25 @@ ci-setup:
 	[ -n "$$srepo" ] || die "SECRETS_REMOTE '$(SECRETS_REMOTE)' is not a GitHub repository: the CI jobs clone the secrets repo from GitHub"; \
 	deploy_key secrets "$$srepo" SECRETS_DEPLOY_KEY; \
 	gh variable set SECRETS_REPO --repo "$$repo" --body "$$srepo" && log_ok "variable SECRETS_REPO of $$repo set ($$srepo)"; \
-	if echo " $(STD_KINDS) " | grep -q ' hardware '; then \
-	  deploy_key kicad "$$owner/kicad-library" KICAD_LIBRARY_DEPLOY_KEY; \
-	  gh variable set KICAD_LIBRARY_REPO --repo "$$repo" --body "$$owner/kicad-library" && log_ok "variable KICAD_LIBRARY_REPO of $$repo set"; \
+	if [ -n "$(std_hw_shared_lib)" ]; then \
+	  klib="$(KICAD_LIBRARY_PROJECT)"; [ -n "$$klib" ] || klib="$$owner/kicad-library"; \
+	  deploy_key kicad "$$klib" KICAD_LIBRARY_DEPLOY_KEY; \
+	  gh variable set KICAD_LIBRARY_REPO --repo "$$repo" --body "$$klib" && log_ok "variable KICAD_LIBRARY_REPO of $$repo set ($$klib)"; \
+	elif echo " $(STD_KINDS) " | grep -q ' hardware '; then log_info "every hardware part uses its own library (<part>_LIBRARY := local): no KiCad library deploy key"; \
+	fi; \
+	if [ -n "$(std_altium_parts)" ]; then \
+	  alib="$(ALTIUM_LIBRARY_PROJECT)"; [ -n "$$alib" ] || alib="$$owner/altium-library"; \
+	  deploy_key altium "$$alib" ALTIUM_LIBRARY_DEPLOY_KEY; \
+	  gh variable set ALTIUM_LIBRARY_REPO --repo "$$repo" --body "$$alib" && log_ok "variable ALTIUM_LIBRARY_REPO of $$repo set ($$alib)"; \
 	fi; \
 	vis=$$(gh repo view "$(CI_TEMPLATES_REPO)" --json visibility -q .visibility 2>/dev/null || true); \
 	case "$$vis" in PRIVATE | INTERNAL) log_warn "CI_TEMPLATES_REPO $(CI_TEMPLATES_REPO) is not public: on it, Settings > Actions > General > Access must allow the repositories of $$owner";; esac; \
 	log_ok "CI for $$repo is set up: make ci-run starts the checks"
+
+# The hardware parts that use the shared KiCad library (not <part>_LIBRARY := local): non-empty when CI needs its deploy key.
+std_hw_shared_lib = $(strip $(foreach p,$(PARTS),$(if $(filter hardware,$(call std_kind,$(p))),$(if $(filter local,$($(call std_name,$(p))_LIBRARY)),,$(call std_name,$(p))))))
+# The altium parts: non-empty when CI needs the Altium library's deploy key (their check runs the library's check, 1.4).
+std_altium_parts = $(strip $(foreach p,$(PARTS),$(if $(filter altium,$(call std_kind,$(p))),$(call std_name,$(p)))))
 
 # The commands make ci-setup runs, printed for you to run by hand instead. They print no values; the keys stay
 # in ~/.ssh and in the GitHub secrets. GITHUB_OWNER is the project's (its origin); the secrets repo is SECRETS_REMOTE.
@@ -790,16 +865,27 @@ ci-setup-help:
 	  "ssh-keygen -t ed25519 -N '' -C $(PROJECT)-ci-secrets -f ~/.ssh/$(PROJECT)-ci-secrets" \
 	  "gh repo deploy-key add ~/.ssh/$(PROJECT)-ci-secrets.pub --repo $$srepo --title $(PROJECT)-ci-read-only" \
 	  "gh secret set SECRETS_DEPLOY_KEY --repo $$owner/$(PROJECT) < ~/.ssh/$(PROJECT)-ci-secrets" ""; \
-	if echo " $(STD_KINDS) " | grep -q ' hardware '; then \
-	  printf '%s\n' "# 3. the same for the shared KiCad library (the hardware jobs clone it; it is a private repo)" \
+	klib="$(KICAD_LIBRARY_PROJECT)"; [ -n "$$klib" ] || klib="$$owner/kicad-library"; \
+	if [ -n "$(std_hw_shared_lib)" ]; then \
+	  printf '%s\n' "# 3. the same for the shared KiCad library $$klib (the hardware jobs clone it; it is a private repo)" \
 	    "ssh-keygen -t ed25519 -N '' -C $(PROJECT)-ci-kicad -f ~/.ssh/$(PROJECT)-ci-kicad" \
-	    "gh repo deploy-key add ~/.ssh/$(PROJECT)-ci-kicad.pub --repo $$owner/kicad-library --title $(PROJECT)-ci-read-only" \
+	    "gh repo deploy-key add ~/.ssh/$(PROJECT)-ci-kicad.pub --repo $$klib --title $(PROJECT)-ci-read-only" \
 	    "gh secret set KICAD_LIBRARY_DEPLOY_KEY --repo $$owner/$(PROJECT) < ~/.ssh/$(PROJECT)-ci-kicad" ""; \
+	fi; \
+	alib="$(ALTIUM_LIBRARY_PROJECT)"; [ -n "$$alib" ] || alib="$$owner/altium-library"; \
+	if [ -n "$(std_altium_parts)" ]; then \
+	  printf '%s\n' "# 3b. the same for the shared Altium library $$alib (the altium jobs check its submodule out with it)" \
+	    "ssh-keygen -t ed25519 -N '' -C $(PROJECT)-ci-altium -f ~/.ssh/$(PROJECT)-ci-altium" \
+	    "gh repo deploy-key add ~/.ssh/$(PROJECT)-ci-altium.pub --repo $$alib --title $(PROJECT)-ci-read-only" \
+	    "gh secret set ALTIUM_LIBRARY_DEPLOY_KEY --repo $$owner/$(PROJECT) < ~/.ssh/$(PROJECT)-ci-altium" ""; \
 	fi; \
 	printf '%s\n' "# 4. repository variables (names, not secrets) the workflows read" \
 	  "gh variable set SECRETS_REPO --repo $$owner/$(PROJECT) --body $$srepo"; \
-	if echo " $(STD_KINDS) " | grep -q ' hardware '; then \
-	  printf '%s\n' "gh variable set KICAD_LIBRARY_REPO --repo $$owner/$(PROJECT) --body $$owner/kicad-library"; \
+	if [ -n "$(std_hw_shared_lib)" ]; then \
+	  printf '%s\n' "gh variable set KICAD_LIBRARY_REPO --repo $$owner/$(PROJECT) --body $$klib"; \
+	fi; \
+	if [ -n "$(std_altium_parts)" ]; then \
+	  printf '%s\n' "gh variable set ALTIUM_LIBRARY_REPO --repo $$owner/$(PROJECT) --body $$alib"; \
 	fi; \
 	if [ "$(CI_TEMPLATES_REPO)" != mayankgautam-me/ci-templates ]; then \
 	  printf '%s\n' "" "# Only if CI_TEMPLATES_REPO ($(CI_TEMPLATES_REPO)) is private: on it, Settings > Actions > General > Access" \
