@@ -17,6 +17,7 @@ tech: GitHub profile README, SVG header
 files: [README.md, assets/**]
 kind: docs
 - [x] Website source merged into this repository under web/ {#profile-merge-website}
+- [x] README header shows the MG mark beside the name {#profile-mg-header}
 
 ## Web {#web}
 tech: static HTML site in web/public, a static-assets Worker on mayankgautam.me: wrangler
@@ -28,6 +29,7 @@ kind: web-pages
 - [x] Redirect Rule www.mayankgautam.me -> https://mayankgautam.me on the zone {#web-www-redirect}
 - [x] Live site checked in the browser {#web-live-check}
 - [x] Replace the GitLab link on the pages with GitHub {#web-gitlab-link}
+- [x] New MG logo (an M whose diagonal runs into a G): favicon and nav mark {#web-mg-logo}
 - [x] Pick a design: one sample home page per style; chosen: the high-end layout in Tokyo Night colours, no photos {#web-design-samples}
 - [x] Rebuild the site in Astro, six pages (Home, About, Resume, Portfolio, Blog with a first post, Contact with links only), content aligned with LinkedIn and the GitHub README {#web-astro}
 - [x] make dev, make check and CI work with the Astro build (needs project-standard 1.8: Astro in the web-pages kind); old URLs keep working {#web-astro-build}

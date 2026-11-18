@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="84" viewBox="0 0 820 84">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="84" viewBox="0 0 900 84">
   <style>
     text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .n { font-size: 30px; font-weight: 600; fill: #2e7de9; }
     .p { font-size: 30px; font-weight: 600; fill: #9854f1; }
     .s { font-size: 15px; fill: #6172b0; }
   </style>
-  <text x="0" y="36"><tspan class="p">~ </tspan><tspan class="n">Mayank Gautam</tspan></text>
-  <text x="0" y="70" class="s">embedded engineer · boards · firmware · embedded linux · wireless · cloud · apps</text>
+  <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2e7de9" /><stop offset=".6" stop-color="#9854f1" /><stop offset="1" stop-color="#118c74" /></linearGradient></defs>
+  <g class="mg" transform="translate(0 20) scale(1.4667) translate(-8.66 -17.00) translate(11.16 -0.50)" fill="none" stroke-width="5.0" stroke-linecap="round" stroke-linejoin="round"><path d="M0.00 45.00V20.00L12.00 32.00L20.34 23.66" stroke="#3760bf" /><path d="M38.75 24.47A12.5 12.5 0 1 0 41.68 32.50H31.18" stroke="url(#mg)" /></g>
+  <text x="86" y="36"><tspan class="p">~ </tspan><tspan class="n">Mayank Gautam</tspan></text>
+  <text x="86" y="70" class="s">embedded engineer · boards · firmware · embedded linux · wireless · cloud · apps</text>
 </svg>
